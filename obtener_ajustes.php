@@ -20,7 +20,6 @@ $filas_actual = $u['color_filas'] ?? '#ffffff';
         <div class="row g-3">
             <?php
             $temas = [
-                // --- SÓLIDOS ---
                 ['nombre' => 'Ártico', 'bg' => '#e2e8f0', 'row' => '#ffffff', 'desc' => 'Clásico'],
                 ['nombre' => 'Noche', 'bg' => '#0f172a', 'row' => '#1e293b', 'desc' => 'Deep Blue'],
                 ['nombre' => 'Sepia', 'bg' => '#f4ecd8', 'row' => '#fdfaf1', 'desc' => 'Papel'],
@@ -33,7 +32,6 @@ $filas_actual = $u['color_filas'] ?? '#ffffff';
                 ['nombre' => 'Menta', 'bg' => '#ecfdf5', 'row' => '#ffffff', 'desc' => 'Fresco'],
                 ['nombre' => 'Café', 'bg' => '#1c1917', 'row' => '#292524', 'desc' => 'Tostado'],
 
-                // --- GRADIENTES ---
                 ['nombre' => 'Aurora', 'bg' => 'linear-gradient(135deg, #0f172a 0%, #213d8c 100%)', 'row' => 'rgba(255,255,255,0.05)', 'desc' => 'Gradiente'],
                 ['nombre' => 'Atardecer', 'bg' => 'linear-gradient(135deg, #1e293b 0%, #4c1d95 100%)', 'row' => 'rgba(255,255,255,0.05)', 'desc' => 'Místico'],
                 ['nombre' => 'Bosque', 'bg' => 'linear-gradient(135deg, #064e3b 0%, #022c22 100%)', 'row' => 'rgba(255,255,255,0.05)', 'desc' => 'Orgánico'],
@@ -46,7 +44,6 @@ $filas_actual = $u['color_filas'] ?? '#ffffff';
                 ['nombre' => 'Flamingo', 'bg' => 'linear-gradient(135deg, #4c0519 0%, #831843 100%)', 'row' => 'rgba(255,255,255,0.05)', 'desc' => 'Cálido'],
                 ['nombre' => 'Bruma', 'bg' => 'linear-gradient(135deg, #312e81 0%, #581c87 100%)', 'row' => 'rgba(255,255,255,0.05)', 'desc' => 'Nocturno'],
 
-                // --- TEMAS CON TEXTURA ---
                 ['nombre' => 'Matriz', 'bg' => '#000000 radial-gradient(#00ff41 0.5px, transparent 0.5px)', 'row' => 'rgba(0,0,0,0.7)', 'desc' => 'Terminal'],
                 ['nombre' => 'Ladrillo', 'bg' => 'linear-gradient(30deg, #444 12%, transparent 12.5%, transparent 87%, #444 87.5%, #444), linear-gradient(150deg, #444 12%, transparent 12.5%, transparent 87%, #444 87.5%, #444), linear-gradient(30deg, #444 12%, transparent 12.5%, transparent 87%, #444 87.5%, #444), linear-gradient(150deg, #444 12%, transparent 12.5%, transparent 87%, #444 87.5%, #444), linear-gradient(60deg, #999 25%, transparent 25.5%, transparent 75%, #999 75%, #999), linear-gradient(60deg, #999 25%, transparent 25.5%, transparent 75%, #999 75%, #999)', 'row' => 'rgba(255,255,255,0.1)', 'desc' => 'Geométrico'],
                 ['nombre' => 'Diagonal', 'bg' => 'repeating-linear-gradient(45deg, #2b2d42, #2b2d42 10px, #1d1e33 10px, #1d1e33 20px)', 'row' => 'rgba(255,255,255,0.05)', 'desc' => 'Rayado'],
@@ -93,7 +90,6 @@ $filas_actual = $u['color_filas'] ?? '#ffffff';
 
     <input type="hidden" name="color_fondo" id="inputFondo" value="<?php echo htmlspecialchars($fondo_actual); ?>">
     <input type="hidden" name="color_filas" id="inputFilas" value="<?php echo htmlspecialchars($filas_actual); ?>">
-    <!-- SEGURIDAD -->
              <label class="form-label small fw-bold text-muted mb-3" style="letter-spacing: 1px; text-transform: uppercase; font-size: 0.7rem;">Acceso</label>
 
 <div class="p-3 rounded-3 mb-3" style="border: 1px solid rgba(255,255,255,0.1); background-color: transparent;">
@@ -124,7 +120,6 @@ $filas_actual = $u['color_filas'] ?? '#ffffff';
 </form>
 
 <style>
-    /* Scroll fino */
     div::-webkit-scrollbar {
         width: 4px;
     }

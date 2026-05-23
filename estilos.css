@@ -6,44 +6,34 @@
     --text-muted: #64748b;
 }
 
-/* 1. Eliminamos los colores de fondo de las filas que ya no quieres */
 .fila-extranjera,
 .fila-azul-especial {
     background-color: transparent !important;
     color: inherit !important;
 }
 
-/* Este es el efecto que tenías: al pasar el ratón por la fila, 
-   el borde izquierdo de la primera celda se ilumina */
 
 #studentTable tbody tr:hover td:first-child {
     background-color: #f8fafc !important;
     transition: box-shadow 0.2s ease;
 }
 
-/* Si la fila tiene un indicador de NOTA, borde LILA */
 #studentTable tbody tr:has(.tipo-nota):hover td:first-child {
     box-shadow: inset 5px 0 0 0 #6b21a8 !important;
 }
 
-/* Si la fila tiene un indicador de LATAM, borde VERDE */
 #studentTable tbody tr:has(.tipo-latam):hover td:first-child {
     box-shadow: inset 5px 0 0 0 #166534 !important;
 }
 
-/* Si la fila tiene un indicador de ESPAÑA, borde GRIS */
 #studentTable tbody tr:has(.tipo-espana):hover td:first-child {
     box-shadow: inset 5px 0 0 0 #cbd5e1 !important;
 }
 
-/* Estilo de los círculos */
 .indicador-tipo {
     width: 18px;
-    /* Antes 24px */
     height: 18px;
-    /* Antes 24px */
     font-size: 0.55rem;
-    /* Un poco más pequeño para que quepa */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -55,67 +45,55 @@
 
 .tipo-latam {
     background-color: #bbf7d0 !important;
-    /* Verde pastel suave */
     color: #166534 !important;
-    /* Texto verde bosque para contraste */
     font-weight: 700;
     border: 1px solid #2a633f;
-    /* Un borde casi invisible para dar forma */
 }
 
-/* Nota: Lila lavanda pastel definido */
 .tipo-nota {
     background-color: #e9d5ff !important;
-    /* Lila lavanda muy suave */
     color: #2a0846 !important;
-    /* Texto violeta oscuro */
     font-weight: 700;
     border: 1px solid #422b5a;
-    /* Definición sutil */
 }
 
 .tipo-espana {
     background: #fff7ed !important;
-    /* Fondo naranja muy clarito */
     color: #c2410c !important;
     font-weight: 400;
 
-    /* Texto naranja oscuro para lectura */
     border-color: #fdba74 !important;
-    /* Borde naranja suave */
 }
 
-/* Inputs originales */
 .form-control {
     background-color: #fcfcfc;
     border: 1px solid #e0e0e0;
 }
 
 
-/* Estilo para el texto del usuario: Gris, fino y mismo tamaño que el contador */
 .user-display-text {
     font-size: 0.75rem !important;
     font-family: 'Inter', sans-serif;
     color: #64748b !important;
-    /* Gris suave (text-muted) */
+     Gris suave (text-muted) */
     font-weight: 400 !important;
-    /* Quita la negrita, lo hace fino */
+     Quita la negrita, lo hace fino */
 }
 
 .user-display-text strong {
     font-weight: 400 !important;
-    /* Quita la negrita también del nombre PHP */
+     Quita la negrita también del nombre PHP */
     color: #37393b !important;
 }
 
-/* Ajusta el botón de Ver/Ocultar para que sea pequeño y discreto */
+ Ajusta el botón de Ver/Ocultar para que sea pequeño y discreto */
 #btnToggleTabla {
     padding: 5px 20px !important;
     font-size: 0.8rem !important;
     height: auto !important;
     min-height: unset !important;
     margin-bottom: 5px !important;
-    /* Espacio mínimo bajo el botón */
+     Espacio mínimo bajo el botón */
 }
 
 .card-body h2.fw-bold {
@@ -129,20 +107,20 @@
 
 .d-flex.flex-column.align-items-center.w-100 {
     max-width: 1400px !important;
-    /* Prueba con 1000px si 1100px te parece mucho */
+     Prueba con 1000px si 1100px te parece mucho */
     margin-left: auto !important;
     margin-right: auto !important;
     width: 95%;
     margin-bottom: 0 !important;
 }
 
-/* Busca esta regla y cámbiala así: */
+ Busca esta regla y cámbiala así: */
 #studentTable td,
 #studentTable th {
     padding-top: 3px !important;
-    /* Antes 4px */
+     Antes 4px */
     padding-bottom: 3px !important;
-    /* Antes 10px */
+     Antes 10px */
     font-size: 0.85rem !important;
     border-right: 1px solid #f1f1f1 !important;
     border-left: 1px solid #f1f1f1 !important;
@@ -151,19 +129,19 @@
 }
 
 
-/* El verde apagado para números que no son 6, 7 o 9 */
+ El verde apagado para números que no son 6, 7 o 9 */
 .fila-extranjera {
     background-color: #e2efda !important;
 }
 
-/* 1. EFECTO HOVER: Lo que pasa al pasar el ratón por cualquier fila */
+ 1. EFECTO HOVER: Lo que pasa al pasar el ratón por cualquier fila */
 #studentTable tbody tr:hover td {
     background-color: #f8fafc !important;
-    /* Gris muy clarito */
+     Gris muy clarito */
     cursor: pointer;
 }
 
-/* Bordes de color al pasar el ratón (Hover) */
+ Bordes de color al pasar el ratón (Hover) */
 #studentTable tbody tr:has(.tipo-nota):hover td:first-child {
     box-shadow: inset 5px 0 0 0 #6b21a8 !important;
 }
@@ -172,44 +150,44 @@
     box-shadow: inset 5px 0 0 0 #166534 !important;
 }
 
-/* El borde lateral naranja al pasar el ratón */
+ El borde lateral naranja al pasar el ratón */
 #studentTable tbody tr:has(.tipo-espana):hover td:first-child {
     box-shadow: inset 5px 0 0 0 #f59e0b !important;
-    /* Naranja vibrante */
+     Naranja vibrante */
 }
 
-/* --- LÓGICA DE COLORES PARA FILAS ABIERTAS/MARCADAS --- */
+ --- LÓGICA DE COLORES PARA FILAS ABIERTAS/MARCADAS --- */
 
-/* 1. Si la fila abierta es JIRA (Azul) */
+ 1. Si la fila abierta es JIRA (Azul) */
 #studentTable tbody tr.abierta:has(.tipo-jira) td,
 #studentTable tbody tr.fila-marcada:has(.tipo-jira) td {
     background-color: #aec6fa !important;
 }
 
-/* 2. Si la fila abierta es NOTA (Lila) */
+ 2. Si la fila abierta es NOTA (Lila) */
 #studentTable tbody tr.abierta:has(.tipo-nota) td,
 #studentTable tbody tr.fila-marcada:has(.tipo-nota) td {
     background-color: #eddffb !important;
 }
 
-/* 3. Si la fila abierta es LATAM (Verde) */
+ 3. Si la fila abierta es LATAM (Verde) */
 #studentTable tbody tr.abierta:has(.tipo-latam) td,
 #studentTable tbody tr.fila-marcada:has(.tipo-latam) td {
     background-color: #b9dca3 !important;
 }
 
-/* 4. Si la fila abierta es ESPAÑA (Naranja/Ámbar) */
+ 4. Si la fila abierta es ESPAÑA (Naranja/Ámbar) */
 #studentTable tbody tr.abierta:has(.tipo-espana) td,
 #studentTable tbody tr.fila-marcada:has(.tipo-espana) td {
     background-color: #ffedd5 !important;
 }
 
-/* --- REFINAMIENTO DE ICONO JIRA --- */
+ --- REFINAMIENTO DE ICONO JIRA --- */
 .tipo-jira {
     background-color: #4597c3 !important;
     font-weight: 700;
 
-    /* Azul JIRA */
+     Azul JIRA */
     color: #1e40af !important;
     border: 1px solid #1e40af !important;
 }
@@ -249,12 +227,12 @@ input[type="file"].form-control-sm {
     padding-left: 15px !important;
 }
 
-/* Estilo base para los botones del supositorio */
+ Estilo base para los botones del supositorio */
 #btnGuardar.btn-custom,
 #btnImportar.btn-custom {
     font-size: 0.75rem !important;
     font-family: 'Inter', sans-serif !important;
-    /* Forzamos la fuente Inter */
+     Forzamos la fuente Inter */
     background-color: var(--primary-blue) !important;
     color: white !important;
     border-radius: 6px;
@@ -262,66 +240,66 @@ input[type="file"].form-control-sm {
     font-weight: 200;
     border: none;
     font-size: 0.8rem !important;
-    /* Comportamiento visual: Transición suave de 0.3s igual que en Actualizar */
+     Comportamiento visual: Transición suave de 0.3s igual que en Actualizar */
     transition: background-color 0.3s ease !important;
     cursor: pointer;
     letter-spacing: 0.02em;
 }
 
-/* Comportamiento al pasar el ratón (Hover) */
+ Comportamiento al pasar el ratón (Hover) */
 #btnGuardar.btn-custom:hover,
 #btnImportar.btn-custom:hover {
     background-color: var(--hover-blue) !important;
     color: white !important;
-    /* Quitamos cualquier transformación o salto */
+     Quitamos cualquier transformación o salto */
     transform: none !important;
-    /* Añadimos la sombra sutil que tiene el botón de actualizar */
+     Añadimos la sombra sutil que tiene el botón de actualizar */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
 #btnImportar {
     margin: 0 !important;
-    /* Elimina cualquier margen que lo empuje */
+     Elimina cualquier margen que lo empuje */
     display: flex;
     align-items: center;
     justify-content: center;
     height: 26px !important;
-    /* Misma altura que el buscador */
+     Misma altura que el buscador */
     padding: 0px !important;
-    /* Menos relleno lateral */
+     Menos relleno lateral */
     font-size: 0.75rem !important;
 }
 
-/* Añade esto para que el botón de añadir funcione igual */
+ Añade esto para que el botón de añadir funcione igual */
 .btn-custom {
-    /* 1. Reset de tamaño y comportamiento */
+     1. Reset de tamaño y comportamiento */
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     box-sizing: border-box !important;
-    /* Fundamental: el borde no suma tamaño */
+     Fundamental: el borde no suma tamaño */
     appearance: none !important;
 
-    /* 2. Colores y fondo */
+     2. Colores y fondo */
     background-color: var(--primary-blue) !important;
     color: white !important;
     border: 1px solid var(--primary-blue) !important;
-    /* Borde siempre presente */
+     Borde siempre presente */
 
-    /* 3. Dimensiones fijas */
+     3. Dimensiones fijas */
     padding: 5px 15px !important;
     height: 32px !important;
-    /* Forzamos altura para que no oscile */
+     Forzamos altura para que no oscile */
     border-radius: 50px !important;
 
-    /* 4. Tipografía */
+     4. Tipografía */
     font-weight: 400 !important;
     font-size: 0.75rem !important;
     text-decoration: none !important;
     cursor: pointer !important;
     line-height: 1 !important;
 
-    /* 5. Bloqueo de expansión */
+     5. Bloqueo de expansión */
     transition: background-color 0.2s ease !important;
 }
 
@@ -331,14 +309,14 @@ input[type="file"].form-control-sm {
     color: white !important;
 }
 
-/* Ajustar también el campo de selección de archivo (Input) */
+ Ajustar también el campo de selección de archivo (Input) */
 form[action="importar_excel.php"] .form-control-sm::file-selector-button {
     height: 22px !important;
-    /* Un poco más bajo que la caja total */
+     Un poco más bajo que la caja total */
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     margin-right: 10px !important;
-    /* <--- ESTO mueve el texto de 'Sin archivos seleccionados' a la derecha */
+     <--- ESTO mueve el texto de 'Sin archivos seleccionados' a la derecha */
     padding: 0 10px !important;
     border: none;
     border-radius: 4px;
@@ -346,11 +324,11 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
     color: #475569;
     font-size: 0.7rem;
     vertical-align: middle;
-    /* Alineación vertical extra */
+     Alineación vertical extra */
 }
 
-/* Reducir el espacio del panel de administrador */
-/* Reducir altura total del contenedor de admin */
+ Reducir el espacio del panel de administrador */
+ Reducir altura total del contenedor de admin */
 .card.custom-card.border-warning {
     margin-top: 0.5rem !important;
     margin-bottom: 0.5rem !important;
@@ -358,23 +336,23 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
 
 .card.custom-card.border-warning .card-body {
     padding: 0.2rem 1rem !important;
-    /* Relleno mínimo arriba y abajo */
+     Relleno mínimo arriba y abajo */
 }
 
 .btn-gris-listado {
     display: inline-block !important;
     padding: 5px 12px !important;
-    /* Relleno original del código 1 */
+     Relleno original del código 1 */
     background-color: #f1f5f9 !important;
     color: #475569 !important;
     border-radius: 4px;
     font-weight: 600;
-    /* Grosor original */
+     Grosor original */
     font-size: 0.7rem !important;
-    /* Tamaño de letra original */
+     Tamaño de letra original */
     text-decoration: none !important;
     line-height: 1.2;
-    /* Asegura que no crezca verticalmente */
+     Asegura que no crezca verticalmente */
 }
 
 .btn-gris-listado:hover {
@@ -397,32 +375,32 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
 .btn-rojo-eliminar:hover {
     background-color: #fee2e2;
     color: #000000 !important;
-    /* Rojo más intenso */
+     Rojo más intenso */
     box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
 }
 
 
-/* Busca esta sección y déjala así */
+ Busca esta sección y déjala así */
 .table thead th {
     position: sticky;
     top: 0;
     background-color: #f8f9fa !important;
     color: var(--text-muted);
-    /* Mantenemos tu color de texto */
+     Mantenemos tu color de texto */
     font-size: 0.75rem;
-    /* Mantenemos tu tamaño */
+     Mantenemos tu tamaño */
     height: 40px !important;
     padding: 0 10px !important;
     border: none;
     z-index: 10;
     box-shadow: inset 0 -1px 0 #e0e0e0;
-    /* La línea separadora */
+     La línea separadora */
     text-align: center;
-    /* <--- ESTO CENTRA LOS TÍTULOS */
+     <--- ESTO CENTRA LOS TÍTULOS */
     vertical-align: middle;
-    /* <--- ESTO LOS CENTRA VERTICALMENTE */
+     <--- ESTO LOS CENTRA VERTICALMENTE */
     border-bottom: 2px solid #e2e8f0 !important;
-    /* Línea base del título más firme */
+     Línea base del título más firme */
     text-transform: uppercase;
 }
 
@@ -437,7 +415,7 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
     padding-bottom: 20px;
 }
 
-/* Reducido para subir todo */
+ Reducido para subir todo */
 
 @keyframes desaparecerSuave {
     0% {
@@ -458,27 +436,27 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
     animation: desaparecerSuave 4s forwards;
     position: fixed !important;
     top: 80px !important;
-    /* Altura ajustada (más baja) */
+     Altura ajustada (más baja) */
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 10000 !important;
     width: 90%;
     max-width: 400px;
 
-    /* Mejoras de visibilidad */
+     Mejoras de visibilidad */
     border-width: 2px !important;
-    /* Borde más grueso */
+     Borde más grueso */
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2) !important;
-    /* Sombra más profunda */
+     Sombra más profunda */
     backdrop-filter: blur(4px);
-    /* Efecto cristal opcional (muy moderno) */
+     Efecto cristal opcional (muy moderno) */
 }
 
-/* Añadimos un contenedor relativo para que la alerta sepa dónde posicionarse */
+ Añadimos un contenedor relativo para que la alerta sepa dónde posicionarse */
 .contenedor-alertas-fijo {
     position: relative;
     height: 60px;
-    /* Reservamos este espacio fijo para que nada se mueva */
+     Reservamos este espacio fijo para que nada se mueva */
     width: 100%;
     display: flex;
     justify-content: center;
@@ -487,15 +465,15 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
 
 .emoji-img {
     height: 20px;
-    /* Tamaño típico de un emoji */
+     Tamaño típico de un emoji */
     width: auto;
     vertical-align: middle;
-    /* Para que quede alineada con el texto */
+     Para que quede alineada con el texto */
     margin-right: 8px;
-    /* Espacio entre la imagen y el texto */
+     Espacio entre la imagen y el texto */
 }
 
-/* Estrechar la barra del buscador y el selector */
+ Estrechar la barra del buscador y el selector */
 .form-control,
 .form-select,
 .input-group-text {
@@ -503,26 +481,26 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
     padding-bottom: 0px !important;
     font-size: 0.8rem !important;
     height: 28px !important;
-    /* Altura fija reducida */
+     Altura fija reducida */
     background-color: transparent !important;
 }
 
-/* Hacer el icono de la lupa y la X más pequeños */
-/* Ajustar el icono de la lupa y la X */
+ Hacer el icono de la lupa y la X más pequeños */
+ Ajustar el icono de la lupa y la X */
 .input-group-text {
     font-size: 0.7rem !important;
     border: none !important;
     flex-wrap: nowrap !important;
-    /* Evita que los elementos salten de línea */
+     Evita que los elementos salten de línea */
 
 }
 
 #btnClear {
     font-size: 0.75rem !important;
-    /* Más pequeño */
+     Más pequeño */
     padding: 0 8px !important;
     color: #cbd5e1 !important;
-    /* Gris muy suave para que no distraiga */
+     Gris muy suave para que no distraiga */
     background: transparent !important;
     border: none !important;
     transition: color 0.2s ease;
@@ -534,10 +512,10 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
 
 #btnClear:hover {
     color: #6b6969 !important;
-    /* Cambia a rojo suave solo al pasar el ratón */
+     Cambia a rojo suave solo al pasar el ratón */
 }
 
-/* Opcional: Hacer que la X sea redonda y pequeña */
+ Opcional: Hacer que la X sea redonda y pequeña */
 #btnClear span {
     background: #f1f5f9;
     width: 18px;
@@ -548,27 +526,27 @@ form[action="importar_excel.php"] .form-control-sm::file-selector-button {
     justify-content: center;
 }
 
-/* El selector de meses más estrecho */
+ El selector de meses más estrecho */
 #filtroMesJS,
 #filtroRegionJS {
     width: 105px !important;
     flex-shrink: 0 !important;
-    /* Evita que el buscador lo aplaste */
+     Evita que el buscador lo aplaste */
 }
 
-/* Reducir el espacio interno de la tarjeta del buscador */
+ Reducir el espacio interno de la tarjeta del buscador */
 .card-body {
     padding: 0.2rem 0.5rem !important;
-    /* Mínimo relleno */
+     Mínimo relleno */
 }
 
 
-/* Color azul apagado para teléfonos que empiezan por 1 */
+ Color azul apagado para teléfonos que empiezan por 1 */
 .fila-azul-especial {
     background-color: #f3e8ff !important;
-    /* Un azul muy suave */
+     Un azul muy suave */
     color: #000000 !important;
-    /* Texto en azul oscuro para que contraste */
+     Texto en azul oscuro para que contraste */
 }
 
 mark {
@@ -580,39 +558,39 @@ mark {
     transition: all 0.2s ease;
 }
 
-/* Creamos un contenedor que ocupe toda la pantalla */
+ Creamos un contenedor que ocupe toda la pantalla */
 .main-wrapper {
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
 
-/* 2. Estado Activo: Solo brilla cuando el body tiene la clase 'buscando' */
+ 2. Estado Activo: Solo brilla cuando el body tiene la clase 'buscando' */
 body.buscando mark {
     background-color: #fef08a !important;
-    /* El amarillo que ya tenías */
+     El amarillo que ya tenías */
     color: #854d0e !important;
     padding: 2px 4px !important;
     border-radius: 4px !important;
     font-weight: 600 !important;
 }
 
-/* El buscador e importador se quedan arriba, fijos */
+ El buscador e importador se quedan arriba, fijos */
 .seccion-fija {
     flex-shrink: 0;
     background-color: var(--bg-body);
     z-index: 10;
 }
 
-/* La tabla es la que tiene el scroll lateral que te gusta */
+ La tabla es la que tiene el scroll lateral que te gusta */
 .seccion-scroll {
     flex-grow: 1;
     overflow-y: scroll;
-    /* ...y aparece aquí, solo para la tabla */
+     ...y aparece aquí, solo para la tabla */
     padding-bottom: 50px;
 }
 
-/* Esto asegura que la modal siempre esté por delante de la mancha negra */
+ Esto asegura que la modal siempre esté por delante de la mancha negra */
 .modal {
     z-index: 99999 !important;
 }
@@ -621,7 +599,7 @@ body.buscando mark {
     z-index: 99998 !important;
 }
 
-/* ELIMINAR BORDES Y PUNTITOS EN BOTONES AL HACER CLIC */
+ ELIMINAR BORDES Y PUNTITOS EN BOTONES AL HACER CLIC */
 button:focus,
 .btn:focus,
 .btn-close:focus,
@@ -629,30 +607,30 @@ a:focus {
     outline: none !important;
     box-shadow: none !important;
     border: none !important;
-    /* Por si algún botón tiene borde asignado */
+     Por si algún botón tiene borde asignado */
 }
 
-/* Específicamente para la "X" de cerrar de Bootstrap */
+ Específicamente para la "X" de cerrar de Bootstrap */
 .btn-close:focus-visible {
     outline: none !important;
     box-shadow: none !important;
 }
 
-/* Quitar el recuadro que pone el navegador por defecto */
+ Quitar el recuadro que pone el navegador por defecto */
 * :focus {
     outline: none !important;
 }
 
-/* REGLAS PARA "CONGELAR" EL TAMAÑO */
+ REGLAS PARA "CONGELAR" EL TAMAÑO */
 
-/* 1. Forzar altura al Buscador */
+ 1. Forzar altura al Buscador */
 #searchInput,
 .input-group {
     height: 32px !important;
     max-height: 32px !important;
 }
 
-/* 2. Forzar altura al Importador (Botón y selector) */
+ 2. Forzar altura al Importador (Botón y selector) */
 #btnImportar,
 input[type="file"] {
     height: 32px !important;
@@ -660,10 +638,10 @@ input[type="file"] {
     padding-bottom: 2px !important;
 }
 
-/* 3. Evitar que los contenedores crezcan */
+ 3. Evitar que los contenedores crezcan */
 .card-body {
     transition: none !important;
-    /* Evita que la animación de Bootstrap los ensanche */
+     Evita que la animación de Bootstrap los ensanche */
 }
 
 
@@ -672,15 +650,15 @@ body {
     background-color: #e2e8f0 !important;
     font-family: 'Inter', sans-serif;
     color: #334155 !important;
-    /* Refuerzo para el body */
+     Refuerzo para el body */
     height: auto !important;
     width: 100% !important;
     position: relative;
     overflow: auto !important;
-    /* Bloqueo de desplazamiento */
+     Bloqueo de desplazamiento */
 }
 
-/* 2. Blindaje para Bootstrap (Evita que mueva la tarjeta blanca al abrir modal) */
+ 2. Blindaje para Bootstrap (Evita que mueva la tarjeta blanca al abrir modal) */
 body.modal-open {
     padding-right: 0 !important;
 }
@@ -690,15 +668,15 @@ body.modal-open {
     display: flex !important;
 }
 
-/* Bloqueo total de movimiento para botones de admin */
+ Bloqueo total de movimiento para botones de admin */
 .btn-outline-secondary,
 .btn-custom {
     transition: none !important;
-    /* Elimina cualquier suavizado que cause el 'salto' */
+     Elimina cualquier suavizado que cause el 'salto' */
     box-sizing: border-box !important;
 }
 
-/* Evitar que el botón se desplace 1px al hacer clic */
+ Evitar que el botón se desplace 1px al hacer clic */
 .btn-outline-secondary:active,
 .btn-outline-secondary:focus,
 .btn-custom:active,
@@ -706,21 +684,21 @@ body.modal-open {
     transform: none !important;
     box-shadow: none !important;
     outline: none !important;
-    /* Forzamos que el borde no cambie de grosor */
+     Forzamos que el borde no cambie de grosor */
     border: 1px solid var(--hover-blue) !important;
 }
 
-/* Forzar ancho para que el icono no empuje el texto */
+ Forzar ancho para que el icono no empuje el texto */
 .btn-outline-secondary.btn-sm {
     min-width: 90px;
-    /* Ajusta este valor si ves que el texto queda muy justo */
+     Ajusta este valor si ves que el texto queda muy justo */
     justify-content: center;
     padding: 0 8px !important;
-    /* Reducimos el aire a los lados */
+     Reducimos el aire a los lados */
     display: inline-flex;
 }
 
-/* --- DISEÑO DE ADJUNTOS --- */
+ --- DISEÑO DE ADJUNTOS --- */
 .adjunto-card {
     display: flex;
     align-items: center;
@@ -751,7 +729,7 @@ body.modal-open {
     color: #475569;
 }
 
-/* Colores por extensión */
+ Colores por extensión */
 .file-icon-container.pdf {
     background-color: #fee2e2;
     color: #dc2626;
@@ -780,26 +758,26 @@ body.modal-open {
     opacity: 0.5;
 }
 
-/* Clase para un bloqueo sutil y cursor de prohibido */
+ Clase para un bloqueo sutil y cursor de prohibido */
 .campo-anulado {
     background-color: #f2f2f2 !important;
-    /* El gris suave que elegimos */
+     El gris suave que elegimos */
     border-color: #e2e8f0 !important;
     color: #64748b !important;
     cursor: not-allowed !important;
-    /* <--- Esto es lo que faltaba forzar */
+     <--- Esto es lo que faltaba forzar */
 }
 
-/* Modifica estas reglas para que sean fluidas al 96% */
+ Modifica estas reglas para que sean fluidas al 96% */
 .custom-card {
     background-color: #f8fafc !important;
     border-radius: 16px !important;
     border: 1px solid #cbd5e1 !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
     margin-bottom: 8px !important;
-    /* Ajustado para que sea más compacto como el anterior */
+     Ajustado para que sea más compacto como el anterior */
 
-    /* CAMBIO CLAVE: De 1400px a 100% y ancho 96% */
+     CAMBIO CLAVE: De 1400px a 100% y ancho 96% */
     max-width: 100% !important;
     margin-left: auto !important;
     margin-right: auto !important;
@@ -817,61 +795,61 @@ body.modal-open {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
     overflow-y: auto;
     max-height: 70vh;
-    /* Ajuste para que se adapte mejor al alto de pantalla */
+     Ajuste para que se adapte mejor al alto de pantalla */
 }
 
-/* Esto pintará las filas impares de un gris muy sutil */
+ Esto pintará las filas impares de un gris muy sutil */
 #studentTable tbody tr:nth-child(odd) {
     background-color: rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Y esto asegura que al pasar el ratón o marcar, el color cambie */
+ Y esto asegura que al pasar el ratón o marcar, el color cambie */
 #studentTable tbody tr:hover td {
     background-color: #f8fafc !important;
 }
 
-/* 1. ESTADO BASE: El borde ya existe pero es transparente */
+ 1. ESTADO BASE: El borde ya existe pero es transparente */
 .search-container .card {
     background: #ffffff;
     border: 1px solid transparent !important;
-    /* Espacio reservado */
+     Espacio reservado */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;
     transition: all 0.2s ease;
-    /* Transición suave de color, no de tamaño */
+     Transición suave de color, no de tamaño */
 }
 
-/* 2. ESTADO ACTIVO: Solo cambia el color del borde y la sombra, no el tamaño */
+ 2. ESTADO ACTIVO: Solo cambia el color del borde y la sombra, no el tamaño */
 .search-container .card:focus-within {
     border: 1px solid #cbd5e1 !important;
-    /* Ahora se vuelve visible */
+     Ahora se vuelve visible */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* 3. LUPA: Cambia de color sin mover nada */
+ 3. LUPA: Cambia de color sin mover nada */
 .search-container .card:focus-within .material-symbols-outlined {
     color: var(--primary-blue) !important;
 }
 
-/* 1. Estado base del contenedor (Gris suave por defecto) */
+ 1. Estado base del contenedor (Gris suave por defecto) */
 .search-container>div {
     transition: all 0.2s ease-in-out !important;
     border: 1px solid #cbd5e1 !important;
     background-color: #f8fafc !important;
-    /* Borde suave inicial */
+     Borde suave inicial */
 }
 
-/* 2. EFECTO CLON LOGIN: Cuando el usuario está escribiendo */
+ 2. EFECTO CLON LOGIN: Cuando el usuario está escribiendo */
 body.buscando .search-container>div {
-    /* Color de borde igual a tu form-control:focus del login */
+     Color de borde igual a tu form-control:focus del login */
     border-color: #94a3b8 !important;
 
-    /* Resplandor gris pizarra exacto de tu login (3px y 0.1 de opacidad) */
+     Resplandor gris pizarra exacto de tu login (3px y 0.1 de opacidad) */
     box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.1) !important;
 
     background-color: #fff;
 }
 
-/* 3. EFECTO CLON LOGIN: Solo al hacer click dentro (aunque esté vacío) */
+ 3. EFECTO CLON LOGIN: Solo al hacer click dentro (aunque esté vacío) */
 .search-container>div:focus-within {
     border-color: #94a3b8 !important;
     box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.1) !important;
@@ -879,35 +857,35 @@ body.buscando .search-container>div {
 
 body.buscando .search-container span.material-symbols-outlined {
     color: #475569 !important;
-    /* El gris oscuro de tus botones del login */
+     El gris oscuro de tus botones del login */
     transition: color 0.2s ease;
 }
 
-/* Esto permite que las celdas sean elásticas pero no rompan la fila */
+ Esto permite que las celdas sean elásticas pero no rompan la fila */
 #studentTable td:nth-child(3),
-/* Nombre */
+ Nombre */
 #studentTable td:nth-child(4) {
-    /* Teléfono */
+     Teléfono */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 150px;
-    /* Puedes subir este valor si quieres que se vean más largos */
+     Puedes subir este valor si quieres que se vean más largos */
 }
 
 .table-responsive-scroll table {
     width: 100% !important;
     table-layout: auto !important;
-    /* 'auto' permite que todas las celdas sean elásticas */
+     'auto' permite que todas las celdas sean elásticas */
 }
 
-/* Centrado específico para la columna de adjuntos */
+ Centrado específico para la columna de adjuntos */
 .celda-adjunto {
     text-align: center !important;
     vertical-align: middle !important;
 }
 
-/* Contenedor para el guion cuando está vacío */
+ Contenedor para el guion cuando está vacío */
 .sin-adjunto {
     opacity: 0.2 !important;
     display: inline-block;
@@ -915,19 +893,19 @@ body.buscando .search-container span.material-symbols-outlined {
     text-align: center;
 }
 
-/* Asegurar que el icono de material symbols no herede alineaciones extrañas */
+ Asegurar que el icono de material symbols no herede alineaciones extrañas */
 .celda-adjunto .material-symbols-outlined {
     display: inline-flex;
     vertical-align: middle;
 }
 
-/* Estilo para la fila de 'Sin resultados' */
+ Estilo para la fila de 'Sin resultados' */
 .no-results-row td {
     text-align: center !important;
     padding: 60px 20px !important;
-    /* Espacio para que respire */
+     Espacio para que respire */
     color: #94a3b8 !important;
-    /* Gris suave */
+     Gris suave */
     background-color: #ffffff !important;
 }
 
@@ -949,46 +927,46 @@ body.buscando .search-container span.material-symbols-outlined {
     font-weight: 500;
 }
 
-/* Arreglo único para el scroll */
+ Arreglo único para el scroll */
 .table-responsive {
     overflow-x: auto;
-    /* Esto obliga al navegador a separar la capa del scroll de la del encabezado */
+     Esto obliga al navegador a separar la capa del scroll de la del encabezado */
     -webkit-overflow-scrolling: touch;
 }
 
-/* --- CABECERAS ESTILO DASHBOARD --- */
+ --- CABECERAS ESTILO DASHBOARD --- */
 
 #studentTable thead th {
-    /* 1. Tipografía */
+     1. Tipografía */
     font-size: 0.75rem;
-    /* Un poco más pequeña para que se vea técnica */
+     Un poco más pequeña para que se vea técnica */
     text-transform: uppercase;
-    /* Mayúsculas para diferenciar del contenido */
+     Mayúsculas para diferenciar del contenido */
     letter-spacing: 0.05em;
-    /* Espaciado entre letras para mejorar lectura */
+     Espaciado entre letras para mejorar lectura */
     font-weight: 700;
-    /* Negrita clara */
+     Negrita clara */
 
-    /* 2. Colores */
+     2. Colores */
     color: #475569;
-    /* Gris azulado oscuro (Slate-600) */
+     Gris azulado oscuro (Slate-600) */
     background-color: #f8fafc;
-    /* Fondo gris casi blanco para separar del cuerpo */
+     Fondo gris casi blanco para separar del cuerpo */
 
-    /* 3. Alineación y Espacio */
+     3. Alineación y Espacio */
     padding: 12px 15px !important;
     text-align: left;
-    /* Asegura que todo esté bien alineado */
+     Asegura que todo esté bien alineado */
     border-bottom: 2px solid #e2e8f0 !important;
-    /* Línea de base firme */
-    /* NUEVO: Centrado total */
+     Línea de base firme */
+     NUEVO: Centrado total */
     text-align: center !important;
-    /* Centrado horizontal */
+     Centrado horizontal */
     vertical-align: middle !important;
-    /* Centrado vertical */
+     Centrado vertical */
 }
 
-/* Evitar que el scroll horizontal "flote" sobre la última línea */
+ Evitar que el scroll horizontal "flote" sobre la última línea */
 #studentTable {
     margin-bottom: 10px !important;
     table-layout: fixed !important;
@@ -996,41 +974,41 @@ body.buscando .search-container span.material-symbols-outlined {
     border-collapse: collapse;
     font-family: 'Geist', 'Inter', -apple-system, sans-serif;
     letter-spacing: -0.01em;
-    /* Mejora la lectura en pantallas */
+     Mejora la lectura en pantallas */
 }
 
 #studentTable th:nth-child(1) {
     width: 45px;
 }
 
-/* Icono */
+ Icono */
 #studentTable th:nth-child(2) {
     width: 95px;
 }
 
-/* ID */
+ ID */
 #studentTable th:nth-child(3) {
     width: 150px;
 }
 
-/* Nombre */
+ Nombre */
 #studentTable th:nth-child(4) {
     width: 150px;
 }
 
-/* Teléfono */
-/* Las columnas 5 y 6 (Consulta y Resolución) no necesitan ancho fijo 
+ Teléfono */
+ Las columnas 5 y 6 (Consulta y Resolución) no necesitan ancho fijo 
    si las demás lo tienen, ellas absorberán el espacio sobrante */
 #studentTable th:nth-child(7) {
     width: 80px;
 }
 
-/* Adjunto */
+ Adjunto */
 #studentTable th:nth-child(8) {
     width: 100px;
 }
 
-/* Fecha */
+ Fecha */
 #studentTable th:nth-child(9) {
     width: 150px;
 }
@@ -1041,14 +1019,14 @@ body.buscando .search-container span.material-symbols-outlined {
     align-items: center;
     justify-content: center;
     padding: 40px 0;
-    /* Espaciado para que respire el área */
+     Espaciado para que respire el área */
 }
 
 .no-results-img {
-    /* Estilo para que la imagen no sea gigante */
+     Estilo para que la imagen no sea gigante */
     max-width: 200px;
     filter: grayscale(20%);
-    /* Opcional: un toque sutil para que encaje con el tono gris */
+     Opcional: un toque sutil para que encaje con el tono gris */
 }
 
 .no-results-text {
@@ -1057,7 +1035,7 @@ body.buscando .search-container span.material-symbols-outlined {
     margin-top: 10px;
 }
 
-/* Tu estilo original se mantiene igual */
+ Tu estilo original se mantiene igual */
 .celda-acordeon {
     display: block;
     max-height: 2.6em;
@@ -1069,11 +1047,11 @@ body.buscando .search-container span.material-symbols-outlined {
     word-break: break-word;
     font-size: 0.85rem;
     color: #475569;
-    /* Evita que el texto se vea muy "apretado" */
+     Evita que el texto se vea muy "apretado" */
     font-weight: 400;
 }
 
-/* CAMBIO AQUÍ: Si la FILA está abierta, la CELDA se expande */
+ CAMBIO AQUÍ: Si la FILA está abierta, la CELDA se expande */
 tr.abierta .celda-acordeon {
     max-height: 1000px;
     overflow-y: visible;
@@ -1081,15 +1059,15 @@ tr.abierta .celda-acordeon {
 
 #studentTable td {
     padding-top: 6px !important;
-    /* Espacio arriba */
+     Espacio arriba */
     vertical-align: top !important;
     height: 1px;
     transition: padding 0.4s;
     overflow: hidden !important;
-    /* Elimina el scroll radicalmente */
-    /* Suaviza el ajuste de la celda */
+     Elimina el scroll radicalmente */
+     Suaviza el ajuste de la celda */
     font-size: 0.82rem;
-    /* Tamaño óptimo para tablas */
+     Tamaño óptimo para tablas */
     color: #334155;
     line-height: 1.4;
 }
@@ -1099,12 +1077,12 @@ tr.abierta .celda-acordeon {
     align-items: center;
     cursor: pointer;
     opacity: 0.3;
-    /* Casi invisible por defecto */
+     Casi invisible por defecto */
     transition: opacity 0.2s, color 0.2s;
     text-decoration: none;
 }
 
-/* El icono se ilumina al pasar el ratón sobre la CELDA o el BOTÓN */
+ El icono se ilumina al pasar el ratón sobre la CELDA o el BOTÓN */
 td:hover .btn-copiar,
 .btn-copiar:hover {
     opacity: 1;
@@ -1113,10 +1091,10 @@ td:hover .btn-copiar,
 
 .btn-copiar:active {
     transform: scale(0.9);
-    /* Efecto de pulsación */
+     Efecto de pulsación */
 }
 
-/* El icono se verá tenue y aparecerá al pasar el ratón por la celda */
+ El icono se verá tenue y aparecerá al pasar el ratón por la celda */
 .btn-copiar {
     opacity: 0.2;
     transition: opacity 0.2s;
@@ -1128,27 +1106,27 @@ td:hover .btn-copiar {
     opacity: 1;
 }
 
-/* Clase exclusiva para la columna Consulta */
+ Clase exclusiva para la columna Consulta */
 .texto-mayuscula {
     text-transform: uppercase !important;
 }
 
 .dato-vacio {
     color: #cbd5e1;
-    /* Un gris clarito */
+     Un gris clarito */
     font-weight: bold;
     user-select: none;
     opacity: 1 !important;
-    /* Quitamos la transparencia para que no se pierda con el fondo */
+     Quitamos la transparencia para que no se pierda con el fondo */
     display: block;
     text-align: center;
-    /* Centra el guion aunque la columna sea text-start */
+     Centra el guion aunque la columna sea text-start */
 }
 
 .aviso-copiado {
     position: fixed;
     background: #1e293b;
-    /* Color oscuro profesional */
+     Color oscuro profesional */
     color: white;
     padding: 4px 10px;
     border-radius: 6px;
@@ -1156,7 +1134,7 @@ td:hover .btn-copiar {
     font-weight: bold;
     z-index: 9999;
     pointer-events: none;
-    /* No estorba al hacer clic */
+     No estorba al hacer clic */
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s, transform 0.3s;
@@ -1168,7 +1146,7 @@ td:hover .btn-copiar {
     transform: translateY(0);
 }
 
-/* --- BOTONES PANEL ADMIN --- */
+ --- BOTONES PANEL ADMIN --- */
 .btn-admin-pill {
     appearance: none !important;
     -webkit-appearance: none !important;
@@ -1177,18 +1155,18 @@ td:hover .btn-copiar {
     color: #6c757d !important;
     cursor: pointer !important;
 
-    /* Dimensiones exactas */
+     Dimensiones exactas */
     height: 26px !important;
     padding: 0 12px !important;
     border-radius: 6px !important;
 
-    /* Tipografía */
+     Tipografía */
     font-size: 0.65rem !important;
     font-family: 'Inter', sans-serif !important;
     font-weight: 500 !important;
     text-decoration: none !important;
 
-    /* Alineación */
+     Alineación */
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -1207,54 +1185,54 @@ td:hover .btn-copiar {
     font-size: 0.9rem !important;
 }
 
-/* Bloqueo total de movimiento para los botones del panel */
+ Bloqueo total de movimiento para los botones del panel */
 .btn-admin-pill:active,
 .btn-admin-pill:focus,
 .btn-admin-pill:focus-visible {
     transform: none !important;
-    /* Evita que se mueva hacia abajo */
+     Evita que se mueva hacia abajo */
     outline: none !important;
-    /* Quita el cerco azul/negro */
+     Quita el cerco azul/negro */
     box-shadow: none !important;
-    /* Quita la sombra que simula hundimiento */
+     Quita la sombra que simula hundimiento */
     position: relative !important;
-    /* Asegura que mantenga su lugar */
+     Asegura que mantenga su lugar */
     top: 0 !important;
     left: 0 !important;
     border: 1px solid #475569 !important;
-    /* Mantiene el mismo borde */
+     Mantiene el mismo borde */
 }
 
-/* Si usas la clase btn de bootstrap, anula su efecto de pulsación */
+ Si usas la clase btn de bootstrap, anula su efecto de pulsación */
 .btn-admin-pill.btn:active {
     background-color: #475569 !important;
-    /* Mantener el color de hover al pulsar */
+     Mantener el color de hover al pulsar */
     color: #ffffff !important;
 }
 
-/* Oculta el scroll en Chrome, Safari y Edge */
+ Oculta el scroll en Chrome, Safari y Edge */
 #studentTable td::-webkit-scrollbar,
 #studentTable .celda-acordeon::-webkit-scrollbar {
     display: none !important;
 }
 
-/* Estilo específico para la columna de Consulta */
+ Estilo específico para la columna de Consulta */
 .celda-acordeon.texto-mayuscula {
     color: #0f172a !important;
-    /* Color ultra oscuro y profesional */
+     Color ultra oscuro y profesional */
     font-weight: 700 !important;
-    /* Un poco más de grosor para que destaque */
+     Un poco más de grosor para que destaque */
     font-size: 0.82rem;
-    /* Un pelín más grande que el resto */
+     Un pelín más grande que el resto */
     letter-spacing: 0.02em;
-    /* Espaciado ligero para que las mayúsculas no se peguen */
+     Espaciado ligero para que las mayúsculas no se peguen */
     line-height: 1.2;
 }
 
-/* Opcional: Si quieres que la Resolución sea legible pero no compita con Consulta */
+ Opcional: Si quieres que la Resolución sea legible pero no compita con Consulta */
 td div.celda-acordeon:not(.texto-mayuscula) {
     color: #475569;
-    /* Gris oscuro equilibrado */
+     Gris oscuro equilibrado */
     font-weight: 400;
 }
 
@@ -1264,23 +1242,23 @@ td div.celda-acordeon:not(.texto-mayuscula) {
     transition: all 0.2s;
 }
 
-/* Color de fondo de la fila cuando es JIRA */
+ Color de fondo de la fila cuando es JIRA */
 .hover-jira {
     background-color: transparent !important;
-    /* Azul muy claro, igual que tu leyenda */
+     Azul muy claro, igual que tu leyenda */
 }
 
 tr.hover-jira.fila-abierta {
     background-color: #dbeafe !important;
 }
 
-/* Color cuando pasas el ratón por encima (hover) */
+ Color cuando pasas el ratón por encima (hover) */
 .hover-jira:hover {
     background-color: #dbeafe !important;
     cursor: pointer;
 }
 
-/* Estilo para el icono de la cadena en adjuntos */
+ Estilo para el icono de la cadena en adjuntos */
 .link-jira {
     color: #0052cc;
     transition: transform 0.2s;
@@ -1291,32 +1269,32 @@ tr.hover-jira.fila-abierta {
     color: #0747a6;
 }
 
-/* --- LÓGICA PARA JIRA (AZUL) --- */
+ --- LÓGICA PARA JIRA (AZUL) --- */
 
 
-/* 2. Borde lateral AZUL al pasar el ratón (Hover) */
+ 2. Borde lateral AZUL al pasar el ratón (Hover) */
 #studentTable tbody tr:has(.tipo-jira):hover td:first-child {
     box-shadow: inset 5px 0 0 0 #2563eb !important;
 }
 
-/* 3. FILA MARCADA JIRA: Fondo azul claro cuando haces clic */
+ 3. FILA MARCADA JIRA: Fondo azul claro cuando haces clic */
 #studentTable tbody tr.fila-marcada:has(.tipo-jira) td,
 #studentTable tbody tr.fila-marcada:has(.tipo-jira):hover td,
 #studentTable tbody tr.abierta:has(.tipo-jira) td {
     background-color: #e0eaff !important;
     color: inherit !important;
-    /* Mantiene el color de fuente original */
+     Mantiene el color de fuente original */
 }
 
-/* Color para el icono de la cadena (JIRA) igual al del clip */
+ Color para el icono de la cadena (JIRA) igual al del clip */
 #studentTable .celda-adjunto a[title="Ver Ticket"],
 #studentTable .celda-adjunto .material-symbols-outlined {
     color: #64748b !important;
-    /* El gris exacto de tu clip */
+     El gris exacto de tu clip */
     transition: color 0.2s ease, transform 0.2s ease;
 }
 
-/* Contenedor de iconos de acción */
+ Contenedor de iconos de acción */
 .action-icon {
     display: flex;
     align-items: center;
@@ -1327,24 +1305,24 @@ tr.hover-jira.fila-abierta {
     text-decoration: none;
     transition: all 0.2s ease;
     color: #94a3b8;
-    /* Gris suave por defecto */
+     Gris suave por defecto */
 }
 
-/* Estilo específico para Editar */
+ Estilo específico para Editar */
 .action-icon.edit:hover {
     background-color: #f1f5f9;
     color: #2563eb;
-    /* Azul JIRA al hover */
+     Azul JIRA al hover */
 }
 
-/* Estilo específico para Eliminar */
+ Estilo específico para Eliminar */
 .action-icon.delete:hover {
     background-color: #fef2f2;
     color: #ef4444;
-    /* Rojo al hover */
+     Rojo al hover */
 }
 
-/* Los iconos se vuelven un poco más visibles cuando la fila está marcada */
+ Los iconos se vuelven un poco más visibles cuando la fila está marcada */
 tr.fila-marcada .action-icon {
     color: #64748b;
 }
@@ -1355,15 +1333,15 @@ tr.fila-marcada .action-icon {
 
 .celda-nombre {
     max-width: 120px;
-    /* Ajusta este número según prefieras de estrecha la columna */
+     Ajusta este número según prefieras de estrecha la columna */
     white-space: normal !important;
-    /* Permite que el texto baje a la siguiente línea */
+     Permite que el texto baje a la siguiente línea */
     word-wrap: break-word;
-    /* Rompe palabras muy largas si es necesario */
+     Rompe palabras muy largas si es necesario */
     line-height: 1.2;
-    /* Estrecha un poco el espacio entre líneas para que se vea compacto */
+     Estrecha un poco el espacio entre líneas para que se vea compacto */
     font-size: 0.85rem;
-    /* Un pelín más pequeña ayuda a que quepa mejor */
+     Un pelín más pequeña ayuda a que quepa mejor */
 }
 
 .custom-modal-body {
@@ -1377,19 +1355,19 @@ tr.fila-marcada .action-icon {
     color: #64748b;
     margin-bottom: 4px !important;
     margin-left: 15px;
-    /* Alineado con la curva del input */
+     Alineado con la curva del input */
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .form-control {
     padding: 8px 18px !important;
-    /* Más aire lateral para la curva */
+     Más aire lateral para la curva */
     font-size: 0.85rem !important;
     height: 38px !important;
-    /* Ligeramente más alto para que sea cómodo */
+     Ligeramente más alto para que sea cómodo */
     border-radius: 50px !important;
-    /* ESTÉTICA PÍLDORA */
+     ESTÉTICA PÍLDORA */
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
     margin-bottom: 12px !important;
@@ -1402,26 +1380,26 @@ tr.fila-marcada .action-icon {
     outline: none;
 }
 
-/* Ajuste especial para el Textarea (no puede ser tan redondo) */
+ Ajuste especial para el Textarea (no puede ser tan redondo) */
 textarea.form-control {
     border-radius: 18px !important;
     height: auto !important;
 }
 
-/* CONTENEDOR DE ADJUNTOS EXISTENTES */
+ CONTENEDOR DE ADJUNTOS EXISTENTES */
 .contenedor-adjunto {
     display: inline-flex;
     align-items: center;
     background-color: #f8fafc;
     padding: 4px 12px;
     border-radius: 50px;
-    /* También redondo */
+     También redondo */
     border: 1px solid #e2e8f0;
     margin-right: 6px;
     margin-bottom: 6px;
 }
 
-/* BOTONES UNIFICADOS (Estilo Login) */
+ BOTONES UNIFICADOS (Estilo Login) */
 .btn-save,
 .btn-cancel {
     color: #475569;
@@ -1430,7 +1408,7 @@ textarea.form-control {
     height: 40px;
     font-weight: 400;
     border-radius: 50px;
-    /* REDONDOS */
+     REDONDOS */
     transition: all 0.2s ease;
     cursor: pointer;
     border: none;
@@ -1455,7 +1433,7 @@ textarea.form-control {
     height: 40px;
     font-weight: 400;
     border-radius: 50px;
-    /* REDONDO */
+     REDONDO */
     cursor: pointer;
 }
 
@@ -1467,7 +1445,7 @@ textarea.form-control {
     background: #f5f3ff;
     padding: 8px 15px;
     border-radius: 50px;
-    /* REDONDO */
+     REDONDO */
     border: 1px solid #ddd6fe;
     cursor: pointer;
 }
@@ -1483,7 +1461,7 @@ textarea.form-control {
 
 
 
-/* CARGADOR DE ARCHIVOS REDONDEADO */
+ CARGADOR DE ARCHIVOS REDONDEADO */
 input[type="file"].form-control {
     padding: 5px 10px !important;
     line-height: 24px;
@@ -1525,26 +1503,26 @@ input[type="file"].form-control {
     cursor: pointer;
 }
 
-/* 1. Quitamos el filtro del contenedor para que las bolas no cambien */
+ 1. Quitamos el filtro del contenedor para que las bolas no cambien */
 .leyenda-item {
     transition: transform 0.1s ease;
-    /* Mantenemos solo la escala si quieres */
+     Mantenemos solo la escala si quieres */
     cursor: pointer;
 }
 
-/* 2. El efecto de oscurecer se lo damos solo al texto (span) */
+ 2. El efecto de oscurecer se lo damos solo al texto (span) */
 .leyenda-item span {
     transition: color 0.2s ease;
     color: #64748b;
-    /* Tu color gris original */
+     Tu color gris original */
 }
 
 .leyenda-item:hover span {
     color: #000000 !important;
-    /* Oscurecimiento máximo */
+     Oscurecimiento máximo */
 }
 
-/* 3. Mantenemos el efecto de pulsación (opcional) */
+ 3. Mantenemos el efecto de pulsación (opcional) */
 .leyenda-item:active {
     transform: scale(0.95);
     transition: transform 0.1s ease;
@@ -1558,7 +1536,7 @@ body::before {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    /* Añade un ruido muy sutil sobre todo el fondo */
+     Añade un ruido muy sutil sobre todo el fondo */
     background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
     opacity: 0.05; 
     pointer-events: none;

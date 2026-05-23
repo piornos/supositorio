@@ -1,5 +1,4 @@
 let estadoSeleccionado = "";
-// 1. FUNCIÓN DE FILTRADO Y RESALTADO (Sincronizada)
 function filtrarTabla() {
     const sInput = document.getElementById('searchInput');
     const fMes = document.getElementById('filtroMesJS');
@@ -28,15 +27,12 @@ function filtrarTabla() {
         const dateContent = fila.cells[7] ? fila.cells[7].textContent : "";
         const indicador = fila.cells[0].querySelector('.indicador-tipo');
 
-        // 1. Lógica de búsqueda por texto
         let matchesText = palabras.every(palabra => {
             let pLimpia = palabra.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
             let tLimpio = textContent.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
             return tLimpio.includes(pLimpia);
         });
 
-        // 2. Lógica de ESTADO (Sincronizada)
-        // CORREGIDO: He quitado el ";" que tenías después de 'tipo-jira' y unido con "||"
         let coincideEstado = (estadoSeleccionado === "") ||
             (estadoSeleccionado === "lila" && indicador && indicador.classList.contains('tipo-nota')) ||
             (estadoSeleccionado === "verde" && indicador && indicador.classList.contains('tipo-latam')) ||
@@ -44,21 +40,17 @@ function filtrarTabla() {
             (estadoSeleccionado === "azul" && indicador && indicador.classList.contains('tipo-jira')) ||
             (estadoSeleccionado === "negro" && fila.querySelector('.fav-marker.active'));
 
-        // 3. Lógica de MES (Mira el Select)
         let coincideMes = true;
-        // CORREGIDO: La lista de colores estaba mal escrita ("azul, negro" en lugar de "azul", "negro")
         const valoresColores = ["lila", "verde", "blanco", "azul", "negro"];
 
         if (filterOption !== "" && !valoresColores.includes(filterOption)) {
             coincideMes = dateContent.includes(filterOption);
         }
 
-        // 4. LA CONDICIÓN FINAL
         if (matchesText && coincideEstado && coincideMes) {
             fila.style.display = '';
             contadorVisibles++;
 
-            // Resaltado <mark>
             [2, 4, 5].forEach(index => {
                 const cell = fila.cells[index];
                 if (cell) {
@@ -83,7 +75,6 @@ function filtrarTabla() {
         }
     });
 
-    // Contador y Empty State
     if (contadorVisibles === 0) {
         const columnCount = document.querySelectorAll('#studentTable thead th').length;
         const noResultsRow = document.createElement('tr');
@@ -103,20 +94,17 @@ function filtrarTabla() {
     document.getElementById('contadorRegistros').innerText = contadorVisibles;
 }
 
-// 2. FUNCIÓN CONVERTIR FECHA
 function convertirFecha(fechaString) {
     const partes = fechaString.split('/');
     if (partes.length !== 3) return new Date(0);
     return new Date(partes[2], partes[1] - 1, partes[0]);
 }
-// 3. INICIALIZACIÓN DE EVENTOS (Dentro del DOMContentLoaded)
 document.addEventListener('DOMContentLoaded', function () {
 
     const searchInput = document.getElementById('searchInput');
     const filtroMesJS = document.getElementById('filtroMesJS');
     let timeoutBusqueda;
 
-    // Definimos la función ANTES de usarla
     const encenderResaltado = () => {
         if (searchInput && searchInput.value.trim().length > 0) {
             document.body.classList.add('buscando');
@@ -126,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     if (searchInput) {
-        // 1. Al escribir: Resalta y Filtra con espera (Debounce)
         searchInput.addEventListener('input', () => {
             encenderResaltado();
             clearTimeout(timeoutBusqueda);
@@ -135,11 +122,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 250);
         });
 
-        // 2. Al hacer clic dentro: Resalta si hay texto
         searchInput.addEventListener('focus', encenderResaltado);
     }
 
-    // 3. Al cambiar el Selector: Resalta y Filtra al instante
     if (filtroMesJS) {
         filtroMesJS.addEventListener('change', () => {
             encenderResaltado();
@@ -147,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 4. Al hacer clic fuera: Quita el resaltado (pero NO deja de filtrar)
     document.addEventListener('click', (e) => {
         if (searchInput && !searchInput.contains(e.target) && e.target.id !== 'btnClear') {
             document.body.classList.remove('buscando');
@@ -156,22 +140,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // Ordenación por fecha
     const thFecha = document.getElementById('thFecha');
     if (thFecha) {
         thFecha.addEventListener('click', function () {
-            // Buscamos el tbody justo en el momento del click para que no sea null
             const elTbody = document.querySelector('#studentTable tbody');
             if (!elTbody) return;
 
-            // Obtenemos solo las filas que NO sean el mensaje de "Sin resultados"
             const rows = Array.from(elTbody.querySelectorAll('tr:not(.no-results-row)'));
 
             this.asc = !this.asc;
             const direccion = this.asc ? 1 : -1;
 
             rows.sort((a, b) => {
-                // Validamos que exista la celda 7 (Fecha)
                 const cellA = a.cells[7] ? a.cells[7].textContent.trim() : "";
                 const cellB = b.cells[7] ? b.cells[7].textContent.trim() : "";
 
@@ -183,26 +163,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 return 0;
             });
 
-            // Reinsertamos las filas ordenadas
             rows.forEach(row => elTbody.appendChild(row));
         });
     }
 
-    // Botón Limpiar
-    // Busca esto en tu Inicialización de Eventos
     const btnClear = document.getElementById('btnClear');
     if (btnClear) {
         btnClear.addEventListener('click', function (e) {
-            e.preventDefault(); // Evita recargas accidentales
+            e.preventDefault(); 
             limpiarTodo();
         });
     }
 
-    filtrarTabla(); // Contar inicial
+    filtrarTabla(); 
 });
 
-// 4. FUNCIONES DE MODALES
-/// Función auxiliar para pasar a mayúsculas
 function forzarMayusculas(e) {
     e.target.value = e.target.value.toUpperCase();
 }
@@ -216,14 +191,11 @@ function conectarLogicaNota() {
     if (!nom) return;
 
     const aplicarMayusculasSiEsNota = () => {
-        // Determinamos si es nota (por el check o por el valor del ID)
         const esNota = (chk && chk.checked) || (idf && idf.value === "NOTA");
 
         if (esNota) {
-            // 1. Convertimos lo que haya (si hay algo)
             nom.value = nom.value.toUpperCase();
-            // 2. Obligamos a que todo lo que se escriba sea mayúscula
-            nom.style.textTransform = "uppercase"; // Refuerzo visual CSS
+            nom.style.textTransform = "uppercase"; 
             nom.addEventListener('input', forzarMayusculas);
         } else {
             nom.style.textTransform = "none";
@@ -231,10 +203,8 @@ function conectarLogicaNota() {
         }
     };
 
-    // Si hay checkbox (caso "Nuevo"), escuchamos el cambio
     if (chk) {
         chk.addEventListener('change', () => {
-            // Lógica de bloqueo de campos que ya tenías
             if (chk.checked) {
                 if (idf) idf.value = "NOTA";
                 if (tel) tel.value = "-";
@@ -248,7 +218,6 @@ function conectarLogicaNota() {
         });
     }
 
-    // EJECUCIÓN INMEDIATA (Para Edición y para cuando se abre el modal)
     aplicarMayusculasSiEsNota();
 }
 
@@ -257,7 +226,7 @@ function abrirNuevo() {
         .then(r => r.text())
         .then(html => {
             document.getElementById('contenidoModalNuevo').innerHTML = html;
-            conectarLogicaNota(); // Conectamos el cable
+            conectarLogicaNota(); 
             new bootstrap.Modal(document.getElementById('modalNuevo')).show();
         });
 }
@@ -268,16 +237,13 @@ function abrirEditar(id) {
         .then(html => {
             document.getElementById('contenidoModalEditar').innerHTML = html;
 
-            // 1. Bloqueo permanente del ID en edición
             const idInput = document.getElementById('inputID');
             if (idInput) {
                 idInput.readOnly = true;
                 idInput.classList.add('campo-anulado');
-                // Opcional: añadir un título para que el usuario sepa por qué no puede escribir
                 idInput.title = "El ID no se puede modificar en edición";
             }
 
-            // 2. Conectar la lógica del checkbox para el campo Teléfono
             setTimeout(() => {
                 conectarLogicaNota();
             }, 50);
@@ -285,22 +251,18 @@ function abrirEditar(id) {
             new bootstrap.Modal(document.getElementById('modalEditar')).show();
         });
 }
-// PEGA ESTO UNA SOLA VEZ dentro de tu DOMContentLoaded
 const tablaBody = document.querySelector('#studentTable tbody');
 if (tablaBody) {
     tablaBody.addEventListener('click', function (e) {
         const row = e.target.closest('tr');
-        // No actuar si pulsamos en botones, links o el icono de copiar
         if (!row || e.target.closest('a, button, .modal, .btn-copiar')) return;
 
         const estabaAbierta = row.classList.contains('abierta');
 
-        // Limpiamos TODAS las filas antes de marcar la nueva
         tablaBody.querySelectorAll('tr').forEach(f => {
             f.classList.remove('abierta', 'fila-marcada');
         });
 
-        // Si la fila no estaba abierta, ahora la abrimos y marcamos
         if (!estabaAbierta) {
             row.classList.add('abierta', 'fila-marcada');
         }
@@ -315,87 +277,69 @@ function limpiarTodo() {
     const searchInput = document.getElementById('searchInput');
     const filtroMesJS = document.getElementById('filtroMesJS');
 
-    // 1. Limpiar inputs
     if (searchInput) searchInput.value = '';
     if (filtroMesJS) filtroMesJS.value = '';
     if (typeof estadoSeleccionado !== 'undefined') {
         estadoSeleccionado = "";
     }
 
-    // 2. Quitar resaltado amarillo del body
     document.body.classList.remove('buscando');
 
-    // 3. Cerrar filas y quitar marcado de selección
     document.querySelectorAll('#studentTable tr.abierta, #studentTable tr.fila-marcada').forEach(fila => {
         fila.classList.remove('abierta', 'fila-marcada');
     });
-    // --- ORDENAR POR FECHA DESCENDENTE (Lo más nuevo arriba) ---
     const elTbody = document.querySelector('#studentTable tbody');
     if (elTbody) {
-        // Obtenemos las filas (saltando la de "no hay resultados")
         const rows = Array.from(elTbody.querySelectorAll('tr:not(.no-results-row)'));
 
         rows.sort((a, b) => {
-            // Buscamos la fecha en la celda 7 (index 7)
             const fechaA = a.cells[7] ? a.cells[7].textContent.trim() : "";
             const fechaB = b.cells[7] ? b.cells[7].textContent.trim() : "";
 
-            // Usamos tu función convertirFecha que ya existe en el código
             const fA = convertirFecha(fechaA);
             const fB = convertirFecha(fechaB);
 
-            // Orden DESCENDENTE: de más reciente a más antiguo
             return fB - fA;
         });
 
-        // Reinyectamos las filas en el nuevo orden
         rows.forEach(row => elTbody.appendChild(row));
     }
 
-    // --- NUEVO: Resetear el estado del icono/variable de fecha ---
     const thFecha = document.getElementById('thFecha');
-    if (thFecha) thFecha.asc = false; // Reiniciamos el estado del click
-    // 4. Refrescar la tabla (quita los <mark> y muestra todas las filas)
+    if (thFecha) thFecha.asc = false; 
     if (typeof filtrarTabla === 'function') {
         filtrarTabla();
     }
 
-    // 5. Quitar el foco del cursor
     if (document.activeElement) {
         document.activeElement.blur();
     }
-    // 6. Llevar el scroll al principio de la tabla de forma suave
     const tabla = document.getElementById('studentTable');
     if (tabla) {
         tabla.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     window.scrollTo({
         top: 0,
-        behavior: 'smooth' // Esto hace que suba suavemente
+        behavior: 'smooth' 
     });
 }
 
 
 function copiarTexto(texto, elemento) {
     navigator.clipboard.writeText(texto).then(() => {
-        // 1. Efecto visual en el icono (el que ya tienes)
         const iconoOriginal = elemento.innerHTML;
         elemento.innerHTML = '<span class="material-symbols-outlined" style="font-size: 1rem; color: #22c55e;">check</span>';
 
-        // 2. CREAR EL MENSAJE FLOTANTE
         const aviso = document.createElement('div');
         aviso.textContent = '¡Copiado!';
         aviso.className = 'aviso-copiado';
 
-        // Añadimos el aviso al cuerpo del documento
         document.body.appendChild(aviso);
 
-        // Posicionamos el aviso sobre el botón
         const rect = elemento.getBoundingClientRect();
-        aviso.style.left = `${rect.left + (rect.width / 2) - 30}px`; // Centrado
-        aviso.style.top = `${rect.top - 30}px`; // Un poco arriba
+        aviso.style.left = `${rect.left + (rect.width / 2) - 30}px`; 
+        aviso.style.top = `${rect.top - 30}px`; 
 
-        // 3. Animación y eliminación
         setTimeout(() => {
             aviso.classList.add('visible');
         }, 10);
@@ -404,18 +348,17 @@ function copiarTexto(texto, elemento) {
             aviso.classList.remove('visible');
             setTimeout(() => {
                 aviso.remove();
-                elemento.innerHTML = iconoOriginal; // Restaurar icono
+                elemento.innerHTML = iconoOriginal; 
             }, 300);
         }, 1000);
     });
 }
 document.addEventListener('change', function (e) {
-    const chkNota = document.getElementById('checkApunte'); // Tu ID de NOTA
-    const chkJira = document.getElementById('checkJira');   // Tu ID de JIRA
+    const chkNota = document.getElementById('checkApunte'); 
+    const chkJira = document.getElementById('checkJira');   /
     const tel = document.getElementById('inputTelefono');
     const idf = document.getElementById('inputID');
 
-    // 1. LÓGICA DE EXCLUSIÓN MUTUA (Solo uno marcado)
     if (e.target === chkNota && chkNota.checked) {
         if (chkJira) chkJira.checked = false;
     }
@@ -423,8 +366,6 @@ document.addEventListener('change', function (e) {
         if (chkNota) chkNota.checked = false;
     }
 
-    // 2. RE-EVALUAR EL ESTADO DE LOS CAMPOS (Desbloqueo)
-    // Si NOTA no está marcado (porque lo quitamos o porque marcamos JIRA), liberamos los campos
     if (chkNota && tel && idf) {
         if (chkNota.checked) {
             idf.value = "NOTA";
@@ -434,7 +375,6 @@ document.addEventListener('change', function (e) {
             idf.classList.add('campo-anulado');
             tel.classList.add('campo-anulado');
         } else {
-            // Si se desmarcó (ya sea manualmente o por pulsar JIRA)
             if (idf.value === "NOTA") idf.value = "";
             if (tel.value === "-") tel.value = "";
             idf.readOnly = false;
@@ -449,8 +389,6 @@ document.getElementById('inputJiraUrl').addEventListener('input', function (e) {
     const feedback = document.getElementById('jira-feedback');
     const input = e.target;
 
-    // Si el usuario olvida el https://, lo ayudamos visualmente o lo aceptamos
-    // Esta regex valida que tenga estructura de dominio (ejemplo.com)
     const pattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 
     if (url === "") {
@@ -461,25 +399,21 @@ document.getElementById('inputJiraUrl').addEventListener('input', function (e) {
     }
 
     if (pattern.test(url)) {
-        // URL Válida (sea de lo que sea)
-        input.style.borderColor = "#22c55e"; // Verde éxito
+        input.style.borderColor = "#22c55e";
         input.style.boxShadow = "0 0 0 3px rgba(34, 197, 94, 0.1)";
         feedback.innerText = "✓ Enlace válido";
         feedback.style.color = "#16a34a";
         feedback.style.display = "block";
     } else {
-        // No tiene formato de URL
-        input.style.borderColor = "#ef4444"; // Rojo error
+        input.style.borderColor = "#ef4444"; 
         input.style.boxShadow = "0 0 0 3px rgba(239, 68, 68, 0.1)";
         feedback.innerText = "⚠ Por favor, introduce un enlace válido (ej: https://...)";
         feedback.style.color = "#dc2626";
         feedback.style.display = "block";
     }
 });
-// Añade esto al final de tu scripts.js
 if (window.location.search.includes('actualizado=1') || window.location.search.includes('eliminado=1')) {
     console.log("Limpiando caché de visualización...");
-    // Esto asegura que la tabla que ves es la última de la DB
 }
 window.addEventListener('load', () => {
     const sInput = document.getElementById('searchInput');
@@ -495,17 +429,12 @@ window.addEventListener('load', () => {
         fMes.value = savedMonth;
     }
 
-    // Si había algo guardado, ejecutamos el filtro para que la tabla se vea bien
     if (savedSearch || savedMonth) {
         filtrarTabla();
     }
 });
-/**
- /**
- * ÚNICA FUNCIÓN para filtrar por estado (Colores y Favoritos)
- */
+
 function filtrarPorEstado(valor) {
-    // Si pulsas el mismo botón que ya está activo, limpiamos el filtro (Toggle)
     if (estadoSeleccionado === valor) {
         estadoSeleccionado = "";
     } else {
@@ -513,7 +442,7 @@ function filtrarPorEstado(valor) {
     }
 
     document.body.classList.add('buscando');
-    filtrarTabla(); // Llamamos a la maestra para que aplique los cambios
+    filtrarTabla(); 
 }
 function ejecutarGuardado(event) {
     if (event) {
@@ -538,7 +467,6 @@ function ejecutarGuardado(event) {
         .then(text => {
             const res = text.trim();
 
-            // 1. CASO: ÉXITO
             if (res === 'success') {
                 if (box) {
                     box.className = "alert alert-success";
@@ -546,22 +474,19 @@ function ejecutarGuardado(event) {
                     box.classList.remove('d-none');
                 }
                 setTimeout(() => {
-                    window.location.href = 'supositorio.php'; // Esto limpia la URL al recargar
+                    window.location.href = 'supositorio.php'; 
                 }, 800);
 
-                // 2. CASO: SIN CAMBIOS (El PHP devuelve 'sin_cambios')
             } else if (res === 'sin_cambios') {
                 if (box) {
-                    box.className = "alert alert-info"; // Azul informativo
+                    box.className = "alert alert-info"; 
                     box.innerHTML = "ℹ️ No se realizaron cambios.";
                     box.classList.remove('d-none');
                 }
 
-                // 3. CASO: ERROR DE DATOS O DB
             } else {
                 if (box) {
-                    box.className = "alert alert-danger"; // Rojo de error
-                    // Personalizamos el mensaje según lo que devuelva el PHP
+                    box.className = "alert alert-danger"; 
                     if (res === 'error_pass') {
                         box.innerHTML = "❌ La contraseña actual es incorrecta.";
                     } else if (res === 'error_datos') {
@@ -596,7 +521,7 @@ function subirFotoRapida() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload(); // Recarga para mostrar la nueva foto
+                    location.reload(); 
                 } else {
                     alert("Error al subir la imagen: " + data.error);
                 }
@@ -615,7 +540,6 @@ function peticionCambiarEntorno(valor) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Recargamos la página para que el PHP ejecute la nueva consulta SQL
                 window.location.reload();
             } else {
                 alert("Error al cambiar de entorno");
@@ -624,22 +548,17 @@ function peticionCambiarEntorno(valor) {
         .catch(error => console.error('Error:', error));
 }
 
-// Si la URL contiene parámetros (como ?actualizado=...)
 if (window.location.search.length > 0) {
-    // Creamos una nueva URL sin los parámetros
     const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
-    // Reemplazamos la URL actual en el historial sin recargar la página
     window.history.replaceState({}, document.title, cleanUrl);
 }
 function toggleFavorito(elemento, idSistema) {
-    // Evitamos que el clic seleccione la fila de la tabla
     event.stopPropagation();
 
     const esFavoritoActualmente = elemento.classList.contains('active');
     const nuevoEstado = esFavoritoActualmente ? 0 : 1;
 
-    // Cambio visual inmediato
     if (nuevoEstado === 1) {
         elemento.classList.add('active');
         elemento.innerText = 'lens';
@@ -650,21 +569,17 @@ function toggleFavorito(elemento, idSistema) {
         elemento.style.fontVariationSettings = "'FILL' 0";
     }
 
-    // Guardar en base de datos (AJAX)
     fetch('actualizar_favorito.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `id_sistema=${idSistema}&estado=${nuevoEstado}`
     });
 
-    // IMPORTANTE: Si el filtro de favoritos (negro) está puesto, refrescamos la tabla
     if (estadoSeleccionado === "negro") {
         filtrarTabla();
     }
 }
-/**
- * Carga el contenido de ajustes.php y muestra la modal
- */
+
 function abrirAjustes() {
     const contenedor = document.getElementById('contenidoAjustes');
     const modalElemento = document.getElementById('modalAjustes');
@@ -674,17 +589,14 @@ function abrirAjustes() {
         return;
     }
 
-    // Cargamos el archivo PHP que contiene el formulario de ajustes
     fetch('obtener_ajustes.php')
         .then(response => {
             if (!response.ok) throw new Error('Error al cargar ajustes.php');
             return response.text();
         })
         .then(html => {
-            // Inyectamos el HTML en el body de la modal
             contenedor.innerHTML = html;
 
-            // Inicializamos y mostramos la modal usando Bootstrap 5
             const modalBootstrap = new bootstrap.Modal(modalElemento);
             modalBootstrap.show();
         })
@@ -693,13 +605,9 @@ function abrirAjustes() {
             alert("No se pudo abrir el panel de personalización.");
         });
 }
-// 1. Función para seleccionar y previsualizar
 function seleccionarTema(elemento, bg, row) {
-    // CAMBIA ESTA LÍNEA:
-    // Usamos setProperty con 'important' para saltarnos el bloqueo del CSS
     document.body.style.setProperty('background', bg, 'important');
 
-    // El resto se queda igual...
     document.getElementById('inputFondo').value = bg;
     document.getElementById('inputFilas').value = row;
     
@@ -707,7 +615,6 @@ function seleccionarTema(elemento, bg, row) {
     elemento.classList.add('tema-active');
 }
 
-// 2. Función para guardar permanentemente
 function ejecutarGuardado() {
     const form = document.getElementById('formColores');
     if (!form) return;
@@ -726,14 +633,12 @@ function ejecutarGuardado() {
             const respuestaLimpia = res.trim();
 
             if (respuestaLimpia === 'success') {
-                // ÉXITO: Icono check_circle
                 mensaje.innerHTML = '<span class="material-symbols-outlined" style="font-size: 1.2rem; margin-right: 8px; vertical-align: middle;">check_circle</span> Cambios guardados. Actualizando sesión...';
                 mensaje.className = "alert alert-success mt-3 d-flex align-items-center justify-content-center";
                 mensaje.classList.remove('d-none');
 
                 setTimeout(() => { window.location.href = 'supositorio.php'; }, 1500);
             } else if (respuestaLimpia === '' || respuestaLimpia.includes('no_changes')) {
-                // INFO/SIN CAMBIOS: Icono info
                 mensaje.innerHTML = '<span class="material-symbols-outlined" style="font-size: 1.2rem; margin-right: 8px; vertical-align: middle;">info</span> No se realizaron cambios nuevos.';
                 mensaje.className = "alert alert-info mt-3 d-flex align-items-center justify-content-center";
                 mensaje.classList.remove('d-none');
@@ -741,7 +646,6 @@ function ejecutarGuardado() {
                 setTimeout(() => { mensaje.classList.add('d-none'); }, 1500);
 
             } else {
-                // Error real del servidor
                 mensaje.innerHTML = '<span class="material-symbols-outlined" style="font-size: 1.2rem; margin-right: 8px; vertical-align: middle;">error</span> Error al procesar: ' + (respuestaLimpia.substring(0, 50));
                 mensaje.className = "alert alert-danger mt-3 d-flex align-items-center justify-content-center";
                 mensaje.classList.remove('d-none');

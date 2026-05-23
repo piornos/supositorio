@@ -4,8 +4,7 @@ date_default_timezone_set('Europe/Madrid');
 include("conexion.php");
 $con = conectar();
 
-// 1. Capturamos los datos REALES del formulario
-$id_sistema     = $_POST['id_sistema']; // ¡Importante!
+$id_sistema     = $_POST['id_sistema']; 
 $id_visible_raw = $_POST['ID'];
 $nombre_raw     = $_POST['nombre'];
 $telefono_raw   = $_POST['telefono'];
@@ -13,12 +12,10 @@ $consulta_raw   = $_POST['consulta'];
 $solucion_raw   = $_POST['solucion'];
 $jira_url_raw   = isset($_POST['jira_url']) ? $_POST['jira_url'] : "";
 
-// 2. Obtener datos actuales para comparar y gestionar fotos
 $sql_old = "SELECT * FROM supositorio WHERE id_sistema = '$id_sistema'";
 $res_old = mysqli_query($con, $sql_old);
 $old = mysqli_fetch_assoc($res_old);
 
-// --- LÓGICA DE ADJUNTOS (Necesaria para que $cadena_fotos_nueva exista) ---
 $imagenes_finales = !empty($old['adjunto']) ? array_filter(explode(",", $old['adjunto'])) : [];
 
 if (!empty($_POST['eliminar_fotos'])) {
@@ -45,7 +42,6 @@ if (!empty($_FILES['adjunto']['name'][0])) {
 }
 $cadena_fotos_nueva = implode(",", array_values(array_filter($imagenes_finales)));
 
-// 3. COMPARACIÓN REAL (Contra datos RAW para evitar líos con los slashes //)
 $cambio_detectado = false;
 
 function sonDiferentes($nuevo, $viejo)
@@ -63,9 +59,7 @@ if (sonDiferentes($solucion_raw,   $old['solucion'])) $cambio_detectado = true;
 if (sonDiferentes($jira_url_raw,   $old['jira_url'])) $cambio_detectado = true;
 if (trim($cadena_fotos_nueva) !== trim($old['adjunto'] ?? '')) $cambio_detectado = true;
 
-// 4. EJECUCIÓN
 if ($cambio_detectado) {
-    // Escapamos los datos justo antes de entrar a la BD
     $id_visible = mysqli_real_escape_string($con, $id_visible_raw);
     $nombre     = mysqli_real_escape_string($con, $nombre_raw);
     $telefono   = mysqli_real_escape_string($con, $telefono_raw);

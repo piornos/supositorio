@@ -13,7 +13,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* Restauramos EXACTAMENTE tu CSS original */
         body {
             background-color: #e2e8f0 !important;
             font-family: 'Inter', sans-serif;
@@ -33,7 +32,7 @@
         }
 
         .btn-custom {
-            background-color: #475569; /* Gris oscuro original */
+            background-color: #475569; 
             color: white;
             border-radius: 50px;
             width: 100%;
@@ -88,7 +87,6 @@
         }
         .link-volver:hover { color: #64748b; }
 
-        /* Estilo para el error de validación */
         #error-message {
             display: none;
             color: #991b1b;
@@ -120,7 +118,6 @@
             <a href="index.php" class="link-volver">← Volver al acceso</a>
         </form>
 
-        <!-- Mensaje de error para las contraseñas -->
         <div id="error-message" class="text-center">
             ⚠️ Las contraseñas no coinciden
         </div>
@@ -153,7 +150,6 @@
             return true;
         };
 
-        // Ocultar error al escribir
         confirmPass.oninput = function() {
             errorDiv.style.display = 'none';
         };

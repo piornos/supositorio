@@ -12,11 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['nueva_foto'])) {
     $nombreArchivo = "perfil_" . $usuario . "_" . time() . "." . $ext;
     
     if (move_uploaded_file($_FILES['nueva_foto']['tmp_name'], $dir . $nombreArchivo)) {
-        // ACTUALIZAMOS LA BASE DE DATOS (Vital para que sea permanente)
         $sql = "UPDATE usuarios SET foto_perfil = '$nombreArchivo' WHERE usuario = '$usuario'";
         
         if (mysqli_query($con, $sql)) {
-            $_SESSION['foto_perfil'] = $nombreArchivo; // Actualizamos la sesión actual
+            $_SESSION['foto_perfil'] = $nombreArchivo; 
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'error' => 'Error al guardar en BD']);

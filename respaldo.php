@@ -1,6 +1,5 @@
 <?php
 session_start();
-// Solo el admin puede hacer backups
 if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
     exit("Acceso denegado");
 }
@@ -36,7 +35,6 @@ foreach ($tablas as $tabla) {
     }
 }
 
-// Configuración de descarga
 $nombre_archivo = 'backup_sistema_' . date("Y-m-d_H-i-s") . '.sql';
 header('Content-Type: application/octet-stream');
 header('Content-Transfer-Encoding: Binary');

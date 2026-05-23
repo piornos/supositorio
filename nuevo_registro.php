@@ -7,16 +7,11 @@ if (!isset($_SESSION['usuario'])) {
 <style>
         .tema-inmune {
             background-color: #ffffff !important;
-            /* Siempre fondo blanco */
             color: #55575a !important;
-            /* Siempre texto azul oscuro/negro */
             backdrop-filter: none !important;
-            /* Quita el efecto borroso si existía */
             border: 1px solid #e2e8f0 !important;
-            /* Borde gris suave */
         }
 
-        /* También hay que blindar los textos dentro de esa zona */
         .tema-inmune p,
         .tema-inmune span,
         .tema-inmune h1 {
@@ -46,7 +41,6 @@ if (!isset($_SESSION['usuario'])) {
                     onclick="
                 if(this.checked) { 
                     document.getElementById('checkJira').checked = false;
-                    // Resetear estado de JIRA si estaba activo
                     document.getElementById('bloque-archivos').style.display = 'block';
                     document.getElementById('bloque-jira').style.display = 'none';
                     document.getElementById('inputJiraUrl').required = false;
@@ -62,10 +56,8 @@ if (!isset($_SESSION['usuario'])) {
                     onclick="
                 if(this.checked) {
                     document.getElementById('checkApunte').checked = false;
-                    // Ejecutar toggleNotas para limpiar el estado de nota
                     if(typeof toggleNotas === 'function') { toggleNotas(document.getElementById('checkApunte')); }
                 }
-                // Lógica de visibilidad de JIRA
                 document.getElementById('bloque-archivos').style.display = this.checked ? 'none' : 'block';
                 document.getElementById('bloque-jira').style.display = this.checked ? 'block' : 'none';
                 document.getElementById('inputJiraUrl').required = this.checked;
@@ -116,7 +108,7 @@ if (!isset($_SESSION['usuario'])) {
             <input type="url" id="inputJiraUrl" name="jira_url"
                 class="tema-inmune form-control"
                 placeholder="Añade URL..."
-                onblur="if(this.value.trim() !== '' && !/^https?:\/\//i.test(this.value)) { this.value = 'https://' + this.value.trim(); }"
+                onblur="if(this.value.trim() !== '' && !/^https?:\/\"
                 style="font-size: 0.85rem; border: 1px solid #e2e8f0;">
             <div id="jira-feedback" style="font-size: 0.7rem; margin-top: 4px; display: none;"></div>
             <div style="margin-top: -8px; margin-bottom: 10px; margin-left: 15px;">
@@ -148,11 +140,9 @@ if (!isset($_SESSION['usuario'])) {
         }
     }
     document.querySelector('form').addEventListener('submit', function(e) {
-        // Seleccionamos el textarea por su nombre
         let resoluciónInput = this.querySelector('textarea[name="solucion"]');
         let texto = resoluciónInput.value.trim();
 
-        // Si el campo no está vacío y no termina en punto
         if (texto.length > 0 && !texto.endsWith('.')) {
             resoluciónInput.value = texto + '.';
         }

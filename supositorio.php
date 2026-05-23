@@ -9,8 +9,6 @@ if (!isset($_SESSION['usuario'])) {
 include("conexion.php");
 $con = conectar();
 $usuario_actual = $_SESSION['usuario'];
-// Traemos el rol y las preferencias de una sola vez
-// En la parte superior de supositorio.php
 $res_user_data = mysqli_query($con, "SELECT rol, primer_acceso, ultimo_entorno, color_fondo, color_filas, color_botones FROM usuarios WHERE usuario = '$usuario_actual'");
 $user_data = mysqli_fetch_assoc($res_user_data);
 if (!$user_data) {
@@ -18,14 +16,12 @@ if (!$user_data) {
     header("Location: index.php");
     exit();
 }
-// Sincronizamos la memoria de la DB con la Sesión si no están actualizadas
 $_SESSION['color_fondo'] = $user_data['color_fondo'];
 $_SESSION['color_filas'] = $user_data['color_filas'];
 $_SESSION['color_botones'] = $user_data['color_botones'] ?? '#475569';
 $rol_usuario = $user_data['rol'] ?? 'user';
 $mostrar_bienvenida = ($user_data['primer_acceso'] == 0);
 
-// --- 1. PROCESAR CAMBIO (Bienvenida o Ajustes) ---
 if (isset($_GET['cambiar_entorno'])) {
     $nuevo = $_GET['cambiar_entorno'];
     $_SESSION['entorno'] = $nuevo;
@@ -34,7 +30,6 @@ if (isset($_GET['cambiar_entorno'])) {
     exit();
 }
 
-// --- 2. SINCRONIZAR ENTORNO ---
 $entorno_en_db = $user_data['ultimo_entorno'] ?? 'general';
 
 if (!isset($_SESSION['entorno']) || $_SESSION['entorno'] !== $entorno_en_db) {
@@ -43,17 +38,13 @@ if (!isset($_SESSION['entorno']) || $_SESSION['entorno'] !== $entorno_en_db) {
 
 $entorno = $_SESSION['entorno'];
 
-// Paso B: Sincronizar Sesión con Base de Datos
-// Consultamos qué hay en la DB ahora mismo
 $res_memoria = mysqli_query($con, "SELECT ultimo_entorno FROM usuarios WHERE usuario = '$usuario_actual'");
 $fila_memoria = mysqli_fetch_assoc($res_memoria);
 $entorno_en_db = $fila_memoria['ultimo_entorno'] ?? 'general';
 
 
-// Paso C: La variable final que usa el resto del código
 $entorno = $_SESSION['entorno'];
 
-// --- 3. LÓGICA DE CONSULTA SQL ---
 if ($rol_usuario === 'admin') {
     if ($entorno === 'personal') {
         $sql = "SELECT * FROM supositorio WHERE vista_privada = '$usuario_actual' ORDER BY id_sistema DESC";
@@ -77,31 +68,24 @@ $query = mysqli_query($con, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Supositorio</title>
 
-    <!-- 1. Favicon (Emoji 💊 girado) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 x=%2250%%22 font-size=%2280%22 text-anchor=%22middle%22 transform=%22scale(-1, 1) translate(-100, 0)%22>💊</text></svg>">
 
-    <!-- 2. Fuentes de Google (Unificadas en un solo enlace para mayor velocidad) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
 
-    <!-- 3. Iconos (Material Symbols) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
 
-    <!-- 4. Frameworks (Bootstrap) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- 5. Tu archivo CSS externo (Va al final para que tus cambios tengan prioridad) -->
     <link rel="stylesheet" href="estilos.css">
     <style>
-        /* 1. FONDO DINÁMICO */
         body {
             background: <?php echo $_SESSION['color_fondo']; ?> !important;
             background-attachment: fixed !important;
             background-size: cover !important;
             min-height: 100vh;
-            /* Esto obliga al fondo a cubrir TODA la pantalla siempre */
             margin: 0;
             flex-direction: column;
             transition: background 0.3s ease;
@@ -111,51 +95,42 @@ $query = mysqli_query($con, $sql);
             flex: 1 0 auto;
         }
 
-        /* 2. FILAS Y EFECTO CEBRA */
         .table td {
-    background-color: #ffffff !important; /* O el color base que prefieras */
+    background-color: #ffffff !important; 
             vertical-align: middle;
             transition: all 0.2s ease;
         }
-/* 2. DEFINIMOS LOS COLORES FIJOS POR TIPO (Independientes del tema) */
-/* Usamos !important para asegurarnos de que ganen al blanco base */
 .hover-jira td { 
-    background-color: #bbcff9 !important; /* Azul Jira siempre */
+    background-color: #bbcff9 !important; 
 }
 .hover-nota td { 
-    background-color: #d8b4fe !important; /* Lila Notas siempre */
+    background-color: #d8b4fe !important; 
 }
 .hover-latam td { 
-    background-color: #bbe2a3 !important; /* Verde Latam siempre */
+    background-color: #bbe2a3 !important; 
 }
 .hover-espana td { 
-    background-color: #ffedd5 !important; /* Naranja España siempre */
+    background-color: #ffedd5 !important; 
 }
-        /* Efecto Cebra: Oscurece ligeramente las filas impares automáticamente */
         .table tr:nth-child(odd) td {
             filter: brightness(0.96) !important;
         }
 
-        /* Hover: Resalta la fila al pasar el ratón */
         .table tr:hover td {
             filter: brightness(0.90) !important;
         }
 
-        /* 3. BOLA DE FAVORITOS (Fav-Marker) */
         .fav-marker {
             cursor: pointer;
             font-size: 0.8rem;
             color: #94a3b8;
-            /* Gris cuando está apagada */
             transition: all 0.2s ease;
             display: inline-flex;
         }
 
         .fav-marker.active {
             color: #e81a1a !important;
-            /* NEGRO cuando es favorito */
             font-variation-settings: 'FILL' 1 !important;
-            /* Rellena el icono si es Material Symbol */
             transform: scale(1.1);
         }
 
@@ -164,7 +139,6 @@ $query = mysqli_query($con, $sql);
             color: #475569;
         }
 
-        /* 4. CONTRASTE AUTOMÁTICO (Cristal) */
         <?php
         $f = $_SESSION['color_fondo'];
         if (strpos($f, '#0') === 0 || strpos($f, 'linear-gradient') !== false):
@@ -191,10 +165,8 @@ $query = mysqli_query($con, $sql);
             filter: invert(1);
         }
 
-        /* X del modal en blanco */
         <?php endif; ?>
 
-        /* 5. COLORES DE CATEGORÍAS (Indicadores laterales) */
         .indicador-tipo {
             width: 24px;
             height: 24px;
@@ -232,7 +204,6 @@ $query = mysqli_query($con, $sql);
             color: #ffffff !important;
         }
 
-        /* 6. BOTONES */
         .btn-custom,
         .btn-admin-pill,
         #btnGuardarColores {
@@ -247,24 +218,17 @@ $query = mysqli_query($con, $sql);
 
         .tema-inmune {
             background-color: #ffffff !important;
-            /* Siempre fondo blanco */
             color: #55575a !important;
-            /* Siempre texto azul oscuro/negro */
             backdrop-filter: none !important;
-            /* Quita el efecto borroso si existía */
             border: 1px solid #e2e8f0 !important;
-            /* Borde gris suave */
         }
 
-        /* También hay que blindar los textos dentro de esa zona */
         .tema-inmune p,
         .tema-inmune span,
         .tema-inmune h1 {
             color: #55575a !important;
         }
 
-        /* ELIMINAR EFECTOS EN FILAS DE "SIN RESULTADOS" */
-        /* Usamos el ID #studentTable para ser más fuertes que el archivo externo */
 
         #studentTable tbody tr.no-results-row:hover td,
         #studentTable tbody tr.fila-sin-hover:hover td {
@@ -274,7 +238,6 @@ $query = mysqli_query($con, $sql);
             box-shadow: none !important;
         }
 
-        /* Bloqueo total del ratón para todo lo que haya dentro de esas filas */
         .no-results-row,
         .no-results-row *,
         .fila-sin-hover,
@@ -284,20 +247,17 @@ $query = mysqli_query($con, $sql);
 
         .mensaje-vacio {
             color: inherit;
-            /* Heredará el color del tema automáticamente */
             opacity: 0.9;
-            /* Le da un toque suave sin llegar a ser gris */
         }
     </style>
 </head>
 
 <body>
-    <div class="flex-grow-content"> <!-- Añade esta línea aquí -->
+    <div class="flex-grow-content"> 
         <?php if ($mostrar_bienvenida): ?>
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(8px); z-index: 20000; display: flex; align-items: center; justify-content: center; padding: 20px;">
                 <div style="background: #ffffff; padding: 40px; border-radius: 16px; text-align: center; max-width: 450px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.1);">
 
-                    <!-- Icono con una pequeña animación o sombra suave -->
                     <div style="background: #f1f5f9; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; margin: 0 auto 25px; font-size: 2.5rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);">
                         💊
                     </div>
@@ -312,7 +272,6 @@ $query = mysqli_query($con, $sql);
 
                     <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
 
-                        <!-- Opción General -->
                         <a href="?cambiar_entorno=general"
                             style="display: flex; align-items: center; justify-content: space-between; text-decoration: none; background: #ffffff; border: 2px solid #e2e8f0; padding: 18px 24px; border-radius: 12px; transition: all 0.2s ease; group"
                             onmouseover="this.style.borderColor='#94a3b8'; this.style.background='#f8fafc'"
@@ -324,7 +283,6 @@ $query = mysqli_query($con, $sql);
                             <span class="material-symbols-outlined" style="color: #cbd5e1;">public</span>
                         </a>
 
-                        <!-- Opción Personal -->
                         <a href="?cambiar_entorno=personal"
                             style="display: flex; align-items: center; justify-content: space-between; text-decoration: none; background: #475569; border: 2px solid #475569; padding: 18px 24px; border-radius: 12px; transition: all 0.2s ease;"
                             onmouseover="this.style.background='#334155'; this.style.borderColor='#334155'"
@@ -349,7 +307,6 @@ $query = mysqli_query($con, $sql);
                 <div class="tema_inmune mb-3">
                     <div style="width: 96%; max-width: 100%; margin: 0 auto; display: flex; justify-content: flex-end;">
                         <div class="d-flex align-items-center tema-inmune shadow-sm px-3 py-1" style="border-radius: 20px; border: 1px solid #e2e8f0;">
-                            <!-- BOTÓN DE CAMBIO RÁPIDO DE ENTORNO -->
                             <div class="dropdown">
                                 <a href="?cambiar_entorno=<?php echo ($entorno === 'general') ? 'personal' : 'general'; ?>"
                                     class="d-flex align-items-center text-decoration-none"
@@ -364,21 +321,16 @@ $query = mysqli_query($con, $sql);
                                     </span>
                                 </a>
                             </div>
-                            <!-- Separador -->
                             <div style="width: 1px; height: 15px; background: #e2e8f0; margin: 0 12px;"></div>
-                            <!-- Botón de Ruedecita (Ajustes) -->
                             <div class="dropdown">
                                 <a href="javascript:void(0)" onclick="abrirAjustes()" class="d-flex align-items-center text-decoration-none" style="color: #64748b; transition: color 0.2s;">
                                     <span class="material-symbols-outlined" style="font-size: 1.1rem;">settings</span>
                                 </a>
                             </div>
-                            <!-- Separador -->
                             <div style="width: 1px; height: 15px; background: #e2e8f0; margin: 0 12px;"></div>
 
-                            <!-- Avatar Clickable -->
                             <div class="position-relative" style="cursor: pointer;" onclick="document.getElementById('inputFotoPerfil').click();" title="Cambiar foto de perfil">
                                 <?php
-                                // Verificamos que la sesión exista, no esté vacía y el archivo realmente exista
                                 $foto = $_SESSION['foto_perfil'] ?? '';
                                 $ruta_foto = "uploads/" . $foto;
 
@@ -386,17 +338,14 @@ $query = mysqli_query($con, $sql);
                                     <img src="<?php echo $ruta_foto; ?>"
                                         style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1px solid #e2e8f0;">
                                 <?php else: ?>
-                                    <!-- Forzamos un color más visible para descartar que se camufle con el fondo -->
                                     <span class="material-symbols-outlined" style="font-size: 1.4rem; color: #747b84 !important; vertical-align: middle;">account_circle</span>
                                 <?php endif; ?>
 
-                                <!-- Input oculto corregido -->
                                 <form id="formFotoPerfil" style="display:none;" method="POST" enctype="multipart/form-data">
                                     <input type="file" id="inputFotoPerfil" name="nueva_foto" accept="image/*" onchange="subirFotoRapida()">
                                 </form>
                             </div>
 
-                            <!-- Separador y Nombre -->
                             <div style="width: 1px; height: 15px; background: #e2e8f0; margin: 0 12px;"></div>
                             <span style="font-size: 0.75rem; color: #475569;">
                                 <strong><?php echo $_SESSION['usuario']; ?></strong>
@@ -542,8 +491,7 @@ $query = mysqli_query($con, $sql);
                 <div></div>
             </div>
             <?php if (isset($_GET['guardado']) || isset($_GET['actualizado']) || isset($_GET['eliminado']) || isset($_GET['error'])):
-                // Determinamos la clase de Bootstrap según el mensaje
-                $clase_bootstrap = 'alert-success'; // Por defecto verde
+                $clase_bootstrap = 'alert-success'; 
                 if (isset($_GET['error']) || isset($_GET['eliminado'])) $clase_bootstrap = 'alert-danger';
                 if (isset($_GET['actualizado']) && $_GET['actualizado'] == 'sin_cambios') $clase_bootstrap = 'alert-info';
             ?>
@@ -551,7 +499,6 @@ $query = mysqli_query($con, $sql);
                     style="width: 96%; margin: 10px auto; border-radius: 8px; font-size: 0.85rem; border: none; opacity: 1 !important;">
                     <strong style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                         <?php
-                        // Icono dinámico según el tipo
                         $icono = 'check_circle';
                         if ($clase_bootstrap === 'alert-danger') $icono = 'error';
                         if ($clase_bootstrap === 'alert-info') $icono = 'info';
@@ -642,7 +589,7 @@ $query = mysqli_query($con, $sql);
                                 $clase_indicador = $esEspanol ? 'tipo-espana' : 'tipo-latam';
                             }
                         ?>
-                            <tr class="tema-inmune<?php echo $clase_hover; ?>"> <!-- He añadido el TR inicial para que la clase hover funcione -->
+                            <tr class="tema-inmune<?php echo $clase_hover; ?>"> 
                                 <td class=" text-center" style="vertical-align: middle; position: relative;">
                                     <?php
                                     $hoy = date('Y-m-d');
@@ -660,7 +607,6 @@ $query = mysqli_query($con, $sql);
                                 <td class="text-center fw-bold" style="vertical-align: middle;">
                                     <div class="d-flex flex-column align-items-center justify-content-center" style="line-height: 1.1;">
 
-                                        <!-- Contenedor de ID y botón Copiar -->
                                         <div class="d-flex align-items-center justify-content-center gap-2">
                                             <?php if ($esNota): ?>
                                                 <span style="font-weight: 800; color: #1e293b; font-size: 0.85rem;">NOTA</span>
@@ -675,8 +621,6 @@ $query = mysqli_query($con, $sql);
                                             <?php endif; ?>
                                         </div>
 
-                                        <!-- CONTENEDOR DE LA BOLITA (Altura 0 para no mover la fila) -->
-                                        <!-- AQUÍ VA EL CÓDIGO NUEVO -->
                                         <div style="height: 0; display: flex; justify-content: center; width: 100%;">
                                             <span class="material-symbols-outlined fav-marker <?php echo ($row['es_favorito'] == 1) ? 'active' : ''; ?>"
                                                 onclick="toggleFavorito(this, <?php echo $row['id_sistema']; ?>)"
@@ -685,7 +629,6 @@ $query = mysqli_query($con, $sql);
                                             </span>
                                         </div>
 
-                                        <!-- Info de Admin -->
                                         <?php if ($rol_usuario === 'admin' && ($row['vista_privada'] ?? 'general') !== 'general'): ?>
                                             <div style="font-size: 0.55rem; color: #94a3b8; font-weight: 400; margin-top: 10px; display: flex; align-items: center; gap: 2px; text-transform: uppercase;">
                                                 <span class="material-symbols-outlined" style="font-size: 0.65rem;">person</span>
@@ -703,11 +646,10 @@ $query = mysqli_query($con, $sql);
                                     }
                                     ?>
                                 </td>
-                                <td class="text-center" style="vertical-align: middle;"> <!-- Cambiado a text-center -->
+                                <td class="text-center" style="vertical-align: middle;"> 
                                     <?php
                                     $mostrarGuion = ($tel_limpio === 'NOTA' || ($esNota && empty($tel_limpio)) || empty($tel_limpio));
 
-                                    // Forzamos a que siempre esté centrado, haya o no teléfono
                                     $claseFlex = 'justify-content-center';
                                     ?>
                                     <div class="d-flex align-items-center <?php echo $claseFlex; ?> gap-2">
@@ -805,12 +747,10 @@ $query = mysqli_query($con, $sql);
                         <?php endwhile; ?>
 
                     <?php else: ?>
-                        <!-- ESTO ES LO ÚNICO QUE SE AÑADE: EL MENSAJE DIFERENTE -->
                         <tr>
                         <tr class="fila-sin-hover">
                             <td colspan="10" class="text-center py-5">
                                 <?php if ($entorno === 'personal'): ?>
-                                    <!-- He quitado el color fijo #475569 para que use el del sistema -->
                                     <div class="mensaje-vacio">
                                         <span class="material-symbols-outlined" style="font-size: 3.5rem; opacity: 0.3; margin-bottom: 15px; color: #b51f79;">folder_shared</span>
                                         <h5 class="fw-bold">Tu entorno personal está vacío</h5>
@@ -833,7 +773,7 @@ $query = mysqli_query($con, $sql);
         </div>
     </div>
     </div>
-    </div> <!-- Cierra el div aquí, justo antes del panel -->
+    </div> 
     <div class="card custom-card mt-3 border-warning py-1" style="width: 96%; margin: 15px auto; border-radius: 6px !important;">
         <div class="card-body py-1">
             <div class="d-flex flex-row align-items-center justify-content-between" style="min-height: 32px;">
@@ -843,7 +783,6 @@ $query = mysqli_query($con, $sql);
                         <?php echo ($rol_usuario === 'admin') ? 'Panel Admin' : 'Sesión de ' . htmlspecialchars($_SESSION['usuario']); ?>
                     </h6>
 
-                    <!-- BOTONES DE ADMINISTRACIÓN (Solo para Admin) -->
                     <?php if ($rol_usuario === 'admin'): ?>
                         <a href="descargar_plantilla.php" class="btn-admin-pill">Plantilla CSV</a>
                         <form action="importar_excel.php" method="POST" enctype="multipart/form-data" class="m-0">
@@ -859,7 +798,6 @@ $query = mysqli_query($con, $sql);
                             <span class="material-symbols-outlined">database</span> Respaldo
                         </a>
 
-                        <!-- BOTÓN DE EXPORTACIÓN PERSONAL (Solo si está en entorno personal y NO es admin) -->
                     <?php elseif ($entorno === 'personal'): ?>
                         <a href="exportar_csv.php" class="btn-admin-pill">
                             <span class="material-symbols-outlined">download</span> Exportar listado
@@ -898,7 +836,6 @@ $query = mysqli_query($con, $sql);
                                     $img = trim($img);
                                     if (empty($img)) continue;
 
-                                    // CORRECCIÓN AQUÍ: PATHINFO_EXTENSION (sin el guion bajo central)
                                     $ext = strtolower(pathinfo($img, PATHINFO_EXTENSION));
 
                                     $icono = 'insert_drive_file';
@@ -958,21 +895,17 @@ $query = mysqli_query($con, $sql);
     <div class="modal fade" id="modalAjustes" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <!-- Ajustamos el header para centrar el contenido -->
                 <div class="modal-header" style="border-bottom: 1px solid #f1f5f9; display: flex; justify-content: center; position: relative; padding: 1.5rem 1rem;">
 
-                    <!-- El título ahora ocupa todo el ancho con text-align center -->
                     <h5 style="font-weight: 400; font-size: 1.3rem; color: #1e293b; margin-bottom: 20px; text-align: center;">
                         <label class="text-muted">Personalización</label>
                     </h5>
 
-                    <!-- El botón de cerrar se posiciona a la derecha sin afectar al centro del título -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         style="position: absolute; right: 1rem; top: 1.5rem; margin: 0;"></button>
                 </div>
 
                 <div class="modal-body" id="contenidoAjustes">
-                    <!-- El contenido se cargará aquí vía AJAX -->
                 </div>
             </div>
         </div>

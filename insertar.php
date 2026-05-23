@@ -8,13 +8,10 @@ if (!isset($_SESSION['usuario'])) {
 include("conexion.php");
 $con = conectar();
 
-// --- NUEVO: LÓGICA DE ENTORNO ---
 $usuario_actual = $_SESSION['usuario'];
 $entorno_actual = $_SESSION['entorno'] ?? 'general';
-// Si el entorno es personal, el dueño es el usuario. Si no, es 'general'.
 $vista_privada = ($entorno_actual === 'personal') ? $usuario_actual : 'general';
 
-// 1. Capturamos y escapamos los datos
 $id_recibido = mysqli_real_escape_string($con, $_POST['ID']);
 $nombre      = mysqli_real_escape_string($con, $_POST['nombre']);
 $telefono    = mysqli_real_escape_string($con, $_POST['telefono']);
@@ -23,7 +20,6 @@ $consulta    = mysqli_real_escape_string($con, $_POST['consulta']);
 $solucion    = mysqli_real_escape_string($con, $_POST['solucion']);
 $categoria   = mysqli_real_escape_string($con, $_POST['categoria'] ?? 'General');
 
-// --- LÓGICA DE CLASIFICACIÓN (Tuya original) ---
 if (isset($_POST['jira'])) {
     $id_final = $id_recibido;
     $jira_url = mysqli_real_escape_string($con, $_POST['jira_url']);
@@ -38,7 +34,6 @@ if (isset($_POST['jira'])) {
     }
 }
 
-// 2. Gestión de Múltiples Archivos (Tuya original)
 $carpeta = "uploads/";
 if (!file_exists($carpeta)) {
     mkdir($carpeta, 0777, true);
@@ -58,8 +53,6 @@ if (!empty($_FILES['adjunto']['name'][0])) {
 }
 $cadena_imagenes = implode(",", $nombres_imagenes);
 
-// 3. Inserción en la base de datos
-// AGREGAMOS 'vista_privada' a la lista de columnas y '$vista_privada' a los valores
 $sql = "INSERT INTO supositorio (ID, nombre, categoria, telefono, consulta, solucion, adjunto, jira_url, vista_privada, fecha_registro) 
         VALUES ('$id_final', '$nombre', '$categoria', '$tel_final', '$consulta', '$solucion', '$cadena_imagenes', '$jira_url', '$vista_privada', NOW())";
 

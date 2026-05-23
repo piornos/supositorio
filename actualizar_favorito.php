@@ -2,7 +2,6 @@
 include("conexion.php");
 $con = conectar();
 
-// Usamos id_sistema porque es lo que envías en el body del fetch
 if (isset($_POST['id_sistema']) && isset($_POST['estado'])) {
     $id = intval($_POST['id_sistema']);
     $estado = intval($_POST['estado']);

@@ -7,14 +7,12 @@ if (!isset($_SESSION['usuario'])) {
 include("conexion.php");
 $con = conectar();
 
-// 1. Sanitización de entrada (Seguridad SQL)
 $id = mysqli_real_escape_string($con, $_GET['id']);
 
 $sql = "SELECT * FROM supositorio WHERE id_sistema='$id'";
 $query = mysqli_query($con, $sql);
 $row = mysqli_fetch_array($query);
 
-// Lógica de Notas
 $esNota = (trim($row['ID']) === 'NOTA' || strpos($row['ID'], 'NOTA-') === 0 || $row['telefono'] === '-');
 $claseGris = $esNota ? 'campo-anulado' : '';
 $esReadOnly = $esNota ? 'readonly' : '';
@@ -24,16 +22,11 @@ $esJira = !empty($url_jira_actual);
 <style>
         .tema-inmune {
             background-color: #ffffff !important;
-            /* Siempre fondo blanco */
             color: #55575a !important;
-            /* Siempre texto azul oscuro/negro */
             backdrop-filter: none !important;
-            /* Quita el efecto borroso si existía */
             border: 1px solid #e2e8f0 !important;
-            /* Borde gris suave */
         }
 
-        /* También hay que blindar los textos dentro de esa zona */
         .tema-inmune p,
         .tema-inmune span,
         .tema-inmune h1 {
